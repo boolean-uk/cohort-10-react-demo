@@ -1,24 +1,17 @@
 import './App.css';
-import { Message } from './components/Message'
-// import Message from './components/Message/Message.js'
-import { useState } from 'react';
+// import { Message } from './components/Message'
+// import { Counter } from './components/Counter'
+import { Dice } from './components/Dice'
+// what state?
+const initialDice = [1,1,1,1,1]
 
-
-// i need some state!!!!
-// the counter value
 function App() {
-  const [counter, setCounter] = useState(0)
-
-  const handleClick = () => {
-    setCounter(counter + 1)
-  }
 
   return (
 
     <div className="App">
       <header className="App-header">
-        <p>{counter}</p>
-        <button onClick={handleClick}>+</button>
+        <Dice dice={initialDice}/>
       </header>
     </div>
 
