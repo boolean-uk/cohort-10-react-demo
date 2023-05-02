@@ -1,9 +1,5 @@
 import './App.css';
-// import { Message } from './components/Message'
-// import { Counter } from './components/Counter'
-import { Dice } from './components/Dice'
-// what state?
-const initialDice = [1,1,1,1,1]
+import { MessageBoard } from './components/MessageBoard'
 
 function App() {
 
@@ -11,7 +7,9 @@ function App() {
 
     <div className="App">
       <header className="App-header">
-        <Dice dice={initialDice}/>
+
+        <MessageBoard />
+
       </header>
     </div>
 
