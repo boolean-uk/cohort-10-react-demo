@@ -1,8 +1,15 @@
 import './Message.css'
 
-function Message (props) {
+function Message ({message, handleDelete}) {
+
+  const handleClick = () => {
+    handleDelete(message)
+  }
   return (
-    <p>{props.content}</p>
+    <div>
+      <span>{message.author}: {message.content}</span>
+      <button onClick={handleClick}>delete</button>
+    </div>
   )
 }
 

@@ -3,8 +3,14 @@ import { useState } from 'react'
 import { Message } from '../Message'
 
 const initialMessages = [
-  "'No', says Tom Kennedy",
-  "Good Morning, Good Afternoon, Good Evening, Good Night!"
+  {
+    content: "'No', says Tom Kennedy",
+    author: 'Tom K'
+  },
+  {
+    content: "Good Morning, Good Afternoon, Good Evening, Good Night!",
+    author: 'Hamza AK'
+  }
 ]
 
 function MessageBoard () {
@@ -21,8 +27,16 @@ function MessageBoard () {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const newMessage = e.target[0].value
+    // target is the element that triggers the event
+    const content = e.target[0].value
+    const author = e.target[1].value
 
+    const newMessage = {
+      content,
+      author
+    }
+
+    console.log(newMessage)
     // COPY THE ARRAY
     // const newMessages = messages.map(message => message)
     // messages.push(newMessage) // NO NO NOPE, NEIN, RARA
@@ -31,18 +45,34 @@ function MessageBoard () {
     setMessages([...messages, newMessage])
   }
 
+  const handleDelete = (message) => {
+    // filter
+    const newMessages = messages.filter(item => {
+      if (item !== message) {
+        return message
+      }
+    })
+    setMessages(newMessages) // the new array (without the one i'm deleting)
+  }
+
 
   return (
     <div>
+      {console.log(messages)}
       <form onSubmit={handleSubmit}>
-        <label>
+        <label htmlFor="content">
           What's your fave saying?
-          <input type="text"/>
         </label>
+        <input id="content" type="text"/>
+        <label htmlFor="author">
+          Who said it?
+        </label>
+        <input id="author" type="text"/>
+
         <button>share</button>
       </form>
       {
-        messages.map((message, index) => <Message key={index} content={message}/>)
+        messages.map((messageObj, index) => <Message key={index} message={messageObj} handleDelete={handleDelete}/>)
       }
     </div>
   )
