@@ -5,11 +5,13 @@ import { Message } from '../Message'
 const initialMessages = [
   {
     content: "'No', says Tom Kennedy",
-    author: 'Tom K'
+    author: 'Tom K',
+    heard: true
   },
   {
     content: "Good Morning, Good Afternoon, Good Evening, Good Night!",
-    author: 'Hamza AK'
+    author: 'Hamza AK',
+    heard: false
   }
 ]
 
@@ -33,7 +35,8 @@ function MessageBoard () {
 
     const newMessage = {
       content,
-      author
+      author,
+      heard: false
     }
 
     console.log(newMessage)
@@ -55,6 +58,32 @@ function MessageBoard () {
     setMessages(newMessages) // the new array (without the one i'm deleting)
   }
 
+  const handleUpdate = (message, value) => {
+
+    const newMessages = messages.map(item => {
+      if (item === message) {
+        return {
+          ...item,
+          heard: value
+        }
+      } else {
+        return item
+      }
+    })
+
+    setMessages(newMessages)
+    // const messageToUpdate = messages.find(item => item === message)
+    // const updatedMessage = {
+    //   ...messageToUpdate,
+    //   heard: value
+    // }
+    // const filteredMessages = messages.filter(item => item !== message)
+    // // const newMessages =
+    // filteredMessages.push(updatedMessage) // inserts at the end
+    //
+    // setMessages(filteredMessages)
+  }
+
 
   return (
     <div>
@@ -72,7 +101,16 @@ function MessageBoard () {
         <button>share</button>
       </form>
       {
-        messages.map((messageObj, index) => <Message key={index} message={messageObj} handleDelete={handleDelete}/>)
+        messages.map((messageObj, index) => {
+          return (
+            <Message
+              key={index}
+              message={messageObj}
+              handleDelete={handleDelete}
+              handleUpdate={handleUpdate}
+            />
+          )
+        })
       }
     </div>
   )
