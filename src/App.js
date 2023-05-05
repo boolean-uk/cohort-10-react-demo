@@ -1,18 +1,10 @@
 import './App.css';
-import { MessageBoard } from './components/MessageBoard'
+import { MyForm } from './components/MyForm'
 
 function App() {
 
   return (
-
-    <div className="App">
-      <header className="App-header">
-
-        <MessageBoard />
-
-      </header>
-    </div>
-
+    <MyForm />
   );
 }
 
