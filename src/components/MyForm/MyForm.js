@@ -3,15 +3,30 @@ import './MyForm.css'
 
 function MyForm () {
   const [name, setName] = useState('edward')
+  const [address, setAddress] = useState('')
+  const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState('')
+
   //TODO: Add your state fields here
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log({name})
+    console.log({name, address, phone, email})
   }
 
   const handleChangeName = (e) => {
-    console.log(e.target.value)
     setName(e.target.value)
+  }
+
+  const handleChangeAddress = (e) => {
+    setAddress(e.target.value)
+  }
+
+  const handleChangePhone = (e) => {
+    setPhone(e.target.value)
+  }
+
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value)
   }
 
   return (
@@ -25,16 +40,16 @@ function MyForm () {
           </label>
           <label>
             Address
-            <input type="text" name="address" />
+            <input type="text" name="address" onChange={handleChangeAddress} value={address}/>
           </label>
           <label>
             Phone Number
-            <input type="tel" name="phone" />
+            <input type="tel" name="phone" onChange={handleChangePhone} value={phone}/>
           </label>
 
           <label>
             Email
-            <input type="email" name="email" />
+            <input type="email" name="email" onChange={handleChangeEmail} value={email}/>
           </label>
         </div>
 
