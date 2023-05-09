@@ -2,21 +2,26 @@
 import { useState } from 'react'
 import { Message } from '../Message'
 
-const initialMessages = [
-  {
-    content: "'No', says Tom Kennedy",
-    author: 'Tom K',
-    heard: true
-  },
-  {
-    content: "Good Morning, Good Afternoon, Good Evening, Good Night!",
-    author: 'Hamza AK',
-    heard: false
-  }
-]
+// const initialMessages = [
+//   {
+//     "content": "'No', says Tom Kennedy",
+//     "author": "Tom K",
+//     "heard": true
+//   },
+//   {
+//     "content": "Good Morning, Good Afternoon, Good Evening, Good Night!",
+//     "author": "Hamza AK",
+//     "heard": false
+//   }
+// ]
+
+// fetch("./messages.json")
+// .then(res => res.json())
+// .then(data => console.log('data', data))
+
 
 function MessageBoard () {
-
+  const initialMessages = require('./messages.json')
   const [messages, setMessages] = useState(initialMessages)
 
   // given i type some text in the input field
