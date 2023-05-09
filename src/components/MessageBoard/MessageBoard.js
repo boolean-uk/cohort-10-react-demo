@@ -9,7 +9,7 @@ function MessageBoard () {
   const [messages, setMessages] = useState([])
 
 useEffect(() => {
-  fetch('http://localhost:3000/messageData')
+  fetch('http://localhost:4000/messagesData')
   .then(res => res.json())
   .then(data =>setMessages(data))
 }, [])
