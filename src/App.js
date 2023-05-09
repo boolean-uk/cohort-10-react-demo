@@ -1,10 +1,10 @@
 import './App.css';
-import { Quotes } from './components/Quotes'
+import { Repos } from './components/Repos'
 
 function App() {
 
   return (
-    <Quotes />
+    <Repos />
   );
 }
 
