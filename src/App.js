@@ -1,10 +1,16 @@
 import './App.css';
-import { Repos } from './components/Repos'
+import { MessageBoard } from './components/MessageBoard'
 
 function App() {
 
   return (
-    <Repos />
+    <>
+      <h1>Message Board</h1>
+        <div>
+          <MessageBoard />
+        </div>
+    </>
+
   );
 }
 
