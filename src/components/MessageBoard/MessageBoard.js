@@ -1,35 +1,24 @@
+
 // what state does my app need?
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Message } from '../Message'
 
-const initialMessages = [
-  {
-    content: "'No', says Tom Kennedy",
-    author: 'Tom K',
-    heard: true
-  },
-  {
-    content: "Good Morning, Good Afternoon, Good Evening, Good Night!",
-    author: 'Hamza AK',
-    heard: false
-  }
-]
 
 function MessageBoard () {
 
-  const [messages, setMessages] = useState(initialMessages)
+  const [messages, setMessages] = useState([])
 
-  // given i type some text in the input field
-  // when i click on the button
-  // then i should see the text display in the list
+useEffect(() => {
+  fetch('http://localhost:3000/messageData')
+  .then(res => res.json())
+  .then(data =>setMessages(data))
+}, [])
 
-  // probably need an event listener for the submit event
-  // some func to run when it triggers
-  // then when it triggers => UPDATE STATE!!!
+//update this handler
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // target is the element that triggers the event
+
     const content = e.target[0].value
     const author = e.target[1].value
 
@@ -40,23 +29,21 @@ function MessageBoard () {
     }
 
     console.log(newMessage)
-    // COPY THE ARRAY
-    // const newMessages = messages.map(message => message)
-    // messages.push(newMessage) // NO NO NOPE, NEIN, RARA
-    // newMessages.push(newMessage) //yes, yes, yes, yes
-    // const newMessages = [...messages, newMessage]
     setMessages([...messages, newMessage])
   }
 
+//update this handler
+
   const handleDelete = (message) => {
-    // filter
     const newMessages = messages.filter(item => {
       if (item !== message) {
         return message
       }
     })
-    setMessages(newMessages) // the new array (without the one i'm deleting)
+    setMessages(newMessages)
   }
+
+//update this handler
 
   const handleUpdate = (message, value) => {
 
@@ -70,20 +57,10 @@ function MessageBoard () {
         return item
       }
     })
-
     setMessages(newMessages)
-    // const messageToUpdate = messages.find(item => item === message)
-    // const updatedMessage = {
-    //   ...messageToUpdate,
-    //   heard: value
-    // }
-    // const filteredMessages = messages.filter(item => item !== message)
-    // // const newMessages =
-    // filteredMessages.push(updatedMessage) // inserts at the end
-    //
-    // setMessages(filteredMessages)
   }
 
+//check render is pointing to correct functions
 
   return (
     <div>
