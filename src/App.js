@@ -1,10 +1,10 @@
 import './App.css';
-import { MyForm } from './components/MyForm'
+import { Quotes } from './components/Quotes'
 
 function App() {
 
   return (
-    <MyForm />
+    <Quotes />
   );
 }
 
