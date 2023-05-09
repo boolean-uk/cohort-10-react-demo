@@ -6,6 +6,7 @@ function MessageBoard () {
   const [messages, setMessages] = useState([])
   const [content, setContent] = useState()
   const [author, setAuthor] = useState()
+  // const [formData, setFormData]= useState({})
 
 
 
@@ -28,67 +29,31 @@ function MessageBoard () {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log({author, content})
-
-
+   
     const newMessage = {
       author,
       content
     }
 
     const options = {
-    method: "POST",
-    header: {"Content-Type": "application/json"},
-    body: JSON.stringify(newMessage)}
-    console.log(newMessage)
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newMessage)
+    };
 
-    // fetch('http://localhost:3000/messages', options)
-    // .then ( res => res.json())
-    // .then(data => {setMessages([...messages, data])}) 
-    // .catch((err) => console.error(err));
+    console.log('new object', newMessage)
 
+    fetch('http://localhost:3000/messages', options)
+    .then(function (response) {
+      return response.json()
+    })
+   
+    setMessages([...messages, newMessage])
+    
 
   }
-
- 
-    // const options = {
-    // method: "POST",
-    // header: {"Content-Type": "application/json"},
-    // body: JSON.stringify({content: content, author: author})}
-    // fetch('http://localhost:3000/messages', options)
-    // .then ( res => res.json())
-    // .then(data => {setMessages([...messages, data])}) 
-
-
-
-
-  //   function createNewMessage(newMessageItem) {
-  //     const newMessage = {
-  //       content: newMessageItem,
-  //       author: "'Tom K'",
-  //       heard: true
-  //     }
-      
-  //     const options = {
-  //         method: 'POST',
-  //         headers: {
-  //             "Content-Type": "application/json"
-  //         },
-  //         body: JSON.stringify(newTodo)
-  //     }
-  
-  //     fetch('http://localhost:3000/messages', options)
-  //         .then(function (response) {
-  //         return response.json()
-  //         })
-  //         .then(function (data) {
-  //             state.todos.push(data)
-  //             renderTodoList()
-  //     })
-  
-  // }
-
-
-
   return (
   <>
   <form onSubmit={handleSubmit}>
@@ -108,5 +73,6 @@ function MessageBoard () {
   </>
   )
 }
+
 
 export default MessageBoard
