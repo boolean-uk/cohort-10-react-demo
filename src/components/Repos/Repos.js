@@ -28,28 +28,43 @@ function Repos () {
       if (data.message === 'Not Found') {
         setNotFound(true)
       } else {
-        console.log(data)
+        // console.log(data)
         setNotFound(false)
         setRepos(data)
         
       }
     })
-      .then(handleData())
   }, [username])
+
+  useEffect(() => {
+    handleData()
+  }, [repos])
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setUsername(formData.github)
+    console.log('repos', repos, '\n', 'repoData', repoData)
+    const userName = formData.github
+    setUsername(userName)
+    // if the username key doesn't exist inside of db.json, create it and 
+    // give it a value of an object, which has keys for each repo name and 
+    // values (for those keys) of an empty array
+    if (!repos.hasOwnProperty(userName)) {
+      repos[userName] = {}
+    // repoData
+
+    }
   }
 
   const handleChange = (e) => {
     setFormData({...formData, github: e.target.value})
   }
+
+
   function handleData(){
     const reposList = []
-    for (let i = 0; i < repos.length;i++){
+    for (let i = 0; i < repos.length;i++) {
       const reposData = repos[i].name
-      console.log(reposData)
+      // console.log(reposData)
       reposList.push(reposData)
     }
     setRepoData(reposList)

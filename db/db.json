@@ -1,9 +1,18 @@
 {
-  "data": {
-    "ManNavic": {
-      "repos": {
-        
-      }
+  "data": [
+    {
+      "comment": "comment",
+      "author": "todd",
+      "username": "ManNavic",
+      "repo": "cohort-10-react-demo",
+      "id": 1
+    },
+    {
+      "comment": "another comment",
+      "author": "todd",
+      "username": "ManNavic",
+      "repo": "cohort-10-react-demo",
+      "id": 2
     }
-  }
+  ]
 }

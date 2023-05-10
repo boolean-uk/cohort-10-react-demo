@@ -17,7 +17,7 @@ return(
     <>
       <ul>
       {
-        notes.map((el) => <li>Comment: {el.commentInput} Author: {el.authorInput}</li>)
+        notes.map((el) => <li>Comment: {el.comment} Author: {el.author}</li>)
       }
       </ul>
     </>

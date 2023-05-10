@@ -17,8 +17,8 @@ function App() {
           element={<Repo />}
         />
         <Route
-        path='/:username/:reponame/notes/add'
-        element={<AddNote />}
+          path='/:username/:reponame/notes/add'
+          element={<AddNote />}
         />
       </Routes>
     </>
