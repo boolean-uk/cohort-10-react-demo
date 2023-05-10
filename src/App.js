@@ -2,8 +2,8 @@ import './App.css';
 import { Routes, Route, Link } from "react-router-dom";
 import { Repos, Repo, Notes } from './components/Repos'
 
-function App() {
 
+function App() {
   return (
     <>
       <Link to="/">home</Link>
@@ -17,7 +17,7 @@ function App() {
           element={<Repo />}
         />
         <Route
-        path=''
+        path='/:username/:reponame/notes/add'
         element={<Notes/>}
         />
       </Routes>

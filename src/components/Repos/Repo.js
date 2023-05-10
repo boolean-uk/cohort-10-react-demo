@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams } from "react-router-dom"
 
+
 function Repo () {
   const [repo, setRepo] = useState({})
   const [notFound, setNotFound] = useState(false)
+  const [username, setUsername] = useState('ManNavic')
 
   const params = useParams()
   console.log(params)
@@ -31,7 +33,7 @@ function Repo () {
           <div>repo '{params.reponame}' of user '{params.username}' does not exist</div>
         ) : (
           <div>
-            <Link to='/'><button>Add Note</button></Link>
+            <Link to={`/${username}/${repo.name}/notes/add`}><button>Add Note</button></Link>
             <ul>
               <li>name: {repo.name}</li>
               <li>forks: {repo.forks}</li>
