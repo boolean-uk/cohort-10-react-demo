@@ -28,6 +28,14 @@ function Repo () {
     return repo.notes.sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp))
   }
 
+  const deleteNote = async (id) => {
+    await fetch(`http://localhost:4000/notes/${id}`, {
+      method: "DELETE"
+    })
+    const notes = repo.notes.filter(item => item.id !== id)
+    setRepo({...repo, notes})
+  }
+
   return (
     <>
       {
@@ -50,6 +58,8 @@ function Repo () {
               sortedNotes().map(note => (
                 <div>
                   {note.contents} at {(new Date(Date.parse(note.timestamp))).toLocaleTimeString()}
+                  <Link to={`/${username}/notes/${note.id}/edit`}>edit</Link>
+                  <button onClick={() => deleteNote(note.id)}>delete</button>
                 </div>
               ))
             }

@@ -1,12 +1,6 @@
 {
   "notes": [
     {
-      "id": 1,
-      "repo": "bitmap_editor",
-      "contents": "I am a great note!",
-      "timestamp": "2023-05-10T13:35:38.308Z"
-    },
-    {
       "id": 2,
       "repo": "count",
       "contents": "I am a bad note!",
@@ -29,6 +23,12 @@
       "repo": "assignments",
       "timestamp": "2023-05-10T13:57:06.870Z",
       "id": 7
+    },
+    {
+      "contents": "I think this is the very best repo",
+      "repo": "bitmap_editor",
+      "timestamp": "2023-05-10T16:21:20.313Z",
+      "id": 8
     }
   ]
 }

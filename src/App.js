@@ -1,6 +1,6 @@
 import './App.css';
 import { Routes, Route, Link } from "react-router-dom";
-import { Repos, Repo, NotesForm, Search } from './components/Repos'
+import { Repos, Repo, NotesForm, NotesEditForm, Search } from './components/Repos'
 
 function App() {
 
@@ -23,6 +23,10 @@ function App() {
         <Route
           path='/:username/:reponame/notes/add'
           element={<NotesForm />}
+        />
+        <Route
+          path='/:username/notes/:noteId/edit'
+          element={<NotesEditForm />}
         />
       </Routes>
     </>
