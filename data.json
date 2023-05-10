@@ -1,0 +1,34 @@
+{
+  "notes": [
+    {
+      "id": 1,
+      "repo": "bitmap_editor",
+      "contents": "I am a great note!",
+      "timestamp": "2023-05-10T13:35:38.308Z"
+    },
+    {
+      "id": 2,
+      "repo": "count",
+      "contents": "I am a bad note!",
+      "timestamp": "2023-05-10T13:35:38.308Z"
+    },
+    {
+      "contents": "should this work?",
+      "repo": "count",
+      "timestamp": "2023-05-10T13:45:33.235Z",
+      "id": 5
+    },
+    {
+      "contents": "adding a note",
+      "repo": "count",
+      "timestamp": "2023-05-10T13:46:44.460Z",
+      "id": 6
+    },
+    {
+      "contents": "I like the idea of this!",
+      "repo": "assignments",
+      "timestamp": "2023-05-10T13:57:06.870Z",
+      "id": 7
+    }
+  ]
+}
