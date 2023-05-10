@@ -1,44 +1,22 @@
 {
   "messages": [
     {
-      "id": 1,
-      "content": "'No', says Tom Kennedy",
-      "author": "'Tom K'"
-    },
-    {
-      "id": 2,
-      "content": "Good Morning, Good Afternoon, Good Evening, Good Night!",
-      "author": "'Hamza AK'"
-    },
-    {
-      "id": 3,
-      "content": "Good Morning, Good Afternoon, Good Evening, Good Night!",
-      "author": "'Hamza AK'"
-    },
-    {
-      "author": "dfdf",
-      "content": "jhdfjh",
-      "id": 4
-    },
-    {
-      "author": "kldjf",
-      "content": "Lol",
+      "author": "Ian",
+      "content": "Mondays suck",
+      "heard": true,
       "id": 5
     },
     {
-      "author": "kldjf",
-      "content": "my request",
-      "id": 6
+      "author": "Me",
+      "content": "Mondays suck",
+      "heard": true,
+      "id": 0.8924213914346254
     },
     {
-      "author": "kldjf",
-      "content": "my request",
-      "id": 7
-    },
-    {
-      "author": "kldjf",
-      "content": "LOOOOOOL",
-      "id": 8
+      "author": "Carolina",
+      "content": "Everything works out",
+      "heard": true,
+      "id": 0.7729832813847999
     }
   ]
 }

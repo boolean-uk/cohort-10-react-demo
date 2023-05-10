@@ -1,16 +1,12 @@
 // what state does my app need?
 import { useState, useEffect } from 'react'
-// import { Message } from '../Message'
+import { Message } from '../Message'
 
 function MessageBoard () {
   const [messages, setMessages] = useState([])
   const [content, setContent] = useState()
   const [author, setAuthor] = useState()
-  // const [formData, setFormData]= useState({})
-
-
-
-
+ 
   useEffect(() => {
     fetch('http://localhost:3000/messages')
     .then(res=> res.json())
@@ -32,7 +28,9 @@ function MessageBoard () {
    
     const newMessage = {
       author,
-      content
+      content,
+      heard: false,
+      id: Math.random()
     }
 
     const options = {
@@ -49,28 +47,83 @@ function MessageBoard () {
     .then(function (response) {
       return response.json()
     })
-   
     setMessages([...messages, newMessage])
-    
+  }
 
+
+
+  const handleDelete = (message, id) => {
+    console.log('on delete', message)
+    // filter
+    const newMessages = messages.filter(item => {
+      if (item !== message) {
+        return message
+      }
+    })
+    setMessages(newMessages) 
+    const options = {
+      method: "DELETE"
+  
+    };
+    fetch(`http://localhost:3000/messages/${message.id}`, options)
+    .then(res => res.text()) // or res.json()
+    .then(res => console.log(res))
+   
   }
+
+  const handleUpdate = (message, value) => {
+console.log(message, value)
+    const newMessages = messages.map(item => {
+      if (item === message) {
+        return {
+          ...item,
+          heard: value
+        }
+      } else {
+        return item
+      }
+    })
+    const options = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify( {heard: value})
+    };
+    fetch(`http://localhost:3000/messages/${message.id}`, options)
+    .then(res => res.text()) // or res.json()
+    .then(res => console.log(res))
+    setMessages(newMessages)
+  }
+
   return (
-  <>
-  <form onSubmit={handleSubmit}>
-    <input type="text" value={content} onChange={changeContent}/>
-    <input type="text" value={author} onChange={changeAuthor}/>
-    <input type="submit" value="Submit"/>
-  </form>
-  {
-    messages.map((message => (
-      <div>
-        <span>
-          {message.content} by {message.author}
-        </span>
-      </div>
-    )))
-  }
-  </>
+    <div>
+    {console.log(messages)}
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="content">
+        What's your fave saying?
+      </label>
+      <input id="content" type="text" value={content} onChange={changeContent}/>
+      <label htmlFor="author">
+        Who said it?
+      </label>
+      <input id="author" type="text" value={author} onChange={changeAuthor}/>
+
+      <button>share</button>
+    </form>
+    {
+      messages.map((messageObj, index) => {
+        return (
+          <Message
+            key={index}
+            message={messageObj}
+            handleDelete={handleDelete}
+            handleUpdate={handleUpdate}
+          />
+        )
+      })
+    }
+ </div>
   )
 }
 
