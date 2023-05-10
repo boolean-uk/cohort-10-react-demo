@@ -1,5 +1,2 @@
 import MessageBoard from './MessageBoard'
-
-export {
-  MessageBoard,
-}
+export default MessageBoard
