@@ -27,7 +27,7 @@ function Repo () {
   const sortedNotes = () => {
     return repo.notes.sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp))
   }
-  
+
   return (
     <>
       {
@@ -35,6 +35,7 @@ function Repo () {
           <div>repo '{reponame}' of user '{username}' does not exist</div>
         ) : (
           <>
+            <Link to={`/${username}`}>back</Link>
             <div>
               <ul>
                 <li>name: {repo.name}</li>
