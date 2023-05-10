@@ -1,12 +1,22 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+const initialNote = [
+  {
+    note: "Good job!",
+  },
+  {
+    note: "Nice code!",
+  },
+];
+
 function Repo() {
   const [repo, setRepo] = useState({});
   const [notFound, setNotFound] = useState(false);
+  const [notes, setNotes] = useState(initialNote);
+  const [formData, setFormData] = useState()
 
   const params = useParams();
-  console.log(params);
 
   useEffect(() => {
     //  https://api.github.com/repos/OWNER/REPO
@@ -16,7 +26,6 @@ function Repo() {
         if (data.message === "Not Found") {
           setNotFound(true);
         } else {
-          console.log(data);
           setNotFound(false);
           setRepo(data);
         }
@@ -24,8 +33,16 @@ function Repo() {
   }, []);
 
   const handleSubmit = (e) => {
-  e.preventDefault()
-}
+    e.preventDefault();
+
+    const newText = e.target.value;
+    console.log("event", e.target.value);
+    const newNote = {
+      note: newText,
+    };
+    setNotes([...notes, newNote]);
+    console.log("note", notes);
+  };
 
   return (
     <>
@@ -43,12 +60,18 @@ function Repo() {
           </ul>
         </div>
       )}
+      <h3>Note section:</h3>
       <form onSubmit={handleSubmit}>
-        <label></label>
-        <input type="text" value=""></input>
+        <label>
+          <input type="text" value={}></input>
+        </label>
+
         <input type="submit" value="Add"></input>
       </form>
-    
+
+      {notes.map((noteObj) => {
+        <Repo notes={noteObj} handleSubmit={handleSubmit} />;
+      })}
     </>
   );
 }
