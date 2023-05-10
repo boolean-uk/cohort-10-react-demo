@@ -12,43 +12,42 @@ function Notes() {
     e.preventDefault()
     setNote(formData.content)
     postNote()
+    .then(() => window.location.replace(`http://localhost:3000/${params.username}/${params.reponame}`))
   }
 
   const handleOnChange = e => {
     setFormData({...formData, content: e.target.value})
   }
 
-  const postNote = () => {
-    fetch(`http://localhost:3001/${params.username}`)
+  const postNote = async () => {
+    return fetch(`http://localhost:3001/${params.username}`)
     .then(res => res.json())
     .then(res => {
       let notesArray = []
       if(res[params.reponame]) {
         notesArray = res[params.reponame]
-      } else {
-        res[params.reponame] = notesArray
       }
-      notesArray.push({...formData})
+
+      notesArray.unshift({...formData})
       console.log('notesArray:', notesArray)
 
-
+      const body = {}
+      body[params.reponame] = notesArray
       const options = {
         method: 'POST',
-        header: {
-          "Content-Type": "application/json"
-        },
-        body: {}
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(body)
       }
-      options.body[params.reponame] = notesArray
+
       console.log('options', options.body)
+      console.log('username', params.username)
+
       fetch(`http://localhost:3001/${params.username}`, options)
-      .then(res => {
-        res.json()
-        console.log(res)
-      })
-      
-      
+      .then(res => res.json())
+      .then(res => console.log("response", res))
+      .catch(err => console.error(err));
     })
+    
   }
   return (
 
