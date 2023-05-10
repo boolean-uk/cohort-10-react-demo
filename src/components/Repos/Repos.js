@@ -18,6 +18,7 @@ function Repos () {
   const [username, setUsername] = useState('ManNavic')
   const [formData, setFormData] = useState(initialFormData)
   const [notFound, setNotFound] = useState(false)
+  const [repoData, setRepoData]= useState([])
 
   useEffect(() => {
     // https://api.github.com/users/${username}/repos
@@ -27,10 +28,13 @@ function Repos () {
       if (data.message === 'Not Found') {
         setNotFound(true)
       } else {
+        console.log(data)
         setNotFound(false)
         setRepos(data)
+        
       }
     })
+      .then(handleData())
   }, [username])
 
   const handleSubmit = (e) => {
@@ -40,6 +44,15 @@ function Repos () {
 
   const handleChange = (e) => {
     setFormData({...formData, github: e.target.value})
+  }
+  function handleData(){
+    const reposList = []
+    for (let i = 0; i < repos.length;i++){
+      const reposData = repos[i].name
+      console.log(reposData)
+      reposList.push(reposData)
+    }
+    setRepoData(reposList)
   }
 
   return (
