@@ -3,7 +3,11 @@ import { useState } from 'react'
 
 function NotesForm () {
   const {username, reponame} = useParams()
-  const [note, setNote] = useState({contents: '', repo: reponame})
+  const [note, setNote] = useState({
+    contents: '',
+    repo: reponame,
+    repoOwner: username
+  })
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {

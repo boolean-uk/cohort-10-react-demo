@@ -1,34 +1,25 @@
 {
   "notes": [
     {
-      "id": 2,
-      "repo": "count",
-      "contents": "I am a bad note!",
-      "timestamp": "2023-05-10T13:35:38.308Z"
-    },
-    {
-      "contents": "should this work?",
-      "repo": "count",
-      "timestamp": "2023-05-10T13:45:33.235Z",
-      "id": 5
-    },
-    {
-      "contents": "adding a note",
-      "repo": "count",
-      "timestamp": "2023-05-10T13:46:44.460Z",
-      "id": 6
-    },
-    {
-      "contents": "I like the idea of this!",
-      "repo": "assignments",
-      "timestamp": "2023-05-10T13:57:06.870Z",
-      "id": 7
-    },
-    {
-      "contents": "I think this is the very best repo",
+      "contents": "What a great repo!",
       "repo": "bitmap_editor",
-      "timestamp": "2023-05-10T16:21:20.313Z",
-      "id": 8
+      "repoOwner": "dearshrewdwit",
+      "timestamp": "2023-05-10T16:53:17.944Z",
+      "id": 1
+    },
+    {
+      "contents": "I think you're a star!",
+      "repo": "bitmap_editor",
+      "repoOwner": "dearshrewdwit",
+      "timestamp": "2023-05-10T16:53:24.783Z",
+      "id": 2
+    },
+    {
+      "contents": "I really like the idea of this!",
+      "repo": "assignments",
+      "repoOwner": "Klimcuks",
+      "timestamp": "2023-05-10T16:53:43.264Z",
+      "id": 3
     }
   ]
 }
