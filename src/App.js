@@ -1,10 +1,28 @@
 import './App.css';
-import MessageBoard from './components/MessageBoard'
+import { Routes, Route, Link } from "react-router-dom";
+import { Repos, Repo } from './components/Repos'
+import Notes from './components/Notes/Notes'
 
 function App() {
 
   return (
-    <MessageBoard />
+    <>
+      <Link to="/">home</Link>
+      <Routes>
+        <Route
+          path='/'
+          element={<Repos />}
+        />
+        <Route
+          path='/:username/:reponame'
+          element={<Repo />}
+        />
+        <Route
+          path='/:username/:reponame/notes/add'
+          element={<Notes/>}
+        />
+      </Routes>
+    </>
   );
 }
 

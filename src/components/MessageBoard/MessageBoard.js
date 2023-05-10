@@ -44,7 +44,6 @@ function MessageBoard() {
         setMessages([...messages, response])
       })
       .catch(err => console.error(err));
-    
   }
 
   const handleDelete = (message) => {
@@ -61,9 +60,7 @@ function MessageBoard() {
       })
       console.log(newMessages)
       setMessages(newMessages)
-    })
-
-    
+    }) 
   }
 
   const handleUpdate = (message, checked) => {

@@ -1,7 +1,11 @@
 {
-  "messages": [
-    {
-      "id": 1
-    }
-  ]
+  "gabriel-rosengren": {},
+  "rockettdev": {
+    "somerepo": [
+      {
+        "id": 1,
+        "content": "Hey nice calculator"
+      }
+    ]
+  }
 }
