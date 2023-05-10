@@ -1,23 +1,21 @@
 // what state does my app need?
-import { useState } from 'react'
 import { Message } from '../Message'
-
-const initialMessages = [
-  {
-    content: "'No', says Tom Kennedy",
-    author: 'Tom K',
-    heard: true
-  },
-  {
-    content: "Good Morning, Good Afternoon, Good Evening, Good Night!",
-    author: 'Hamza AK',
-    heard: false
-  }
-]
+import { useState, useEffect } from 'react'
 
 function MessageBoard () {
 
-  const [messages, setMessages] = useState(initialMessages)
+  const [messages, setMessages] = useState([])
+
+  useEffect(() => {
+    fetch("http://localhost:4000/data")
+    .then((res) => res.json())
+    .then((json) => setMessages(json))
+  }, [])
+
+
+  function addNewMessage(e) {
+  }
+
 
   // given i type some text in the input field
   // when i click on the button
@@ -39,6 +37,18 @@ function MessageBoard () {
       heard: false
     }
 
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newMessage)
+    }
+
+    fetch('http://localhost:4000/data', options).then(function(response) {
+      return response.json()
+    })
+
     console.log(newMessage)
     // COPY THE ARRAY
     // const newMessages = messages.map(message => message)
@@ -52,16 +62,32 @@ function MessageBoard () {
     // filter
     const newMessages = messages.filter(item => {
       if (item !== message) {
-        return message
+          const options = {
+            method: "DELETE"
+      }
+      fetch(`http://localhost:4000/data/${message.id}`, options) .then(response => {
+          return response.json()
+        })
+          return message
       }
     })
     setMessages(newMessages) // the new array (without the one i'm deleting)
-  }
+}
 
   const handleUpdate = (message, value) => {
-
     const newMessages = messages.map(item => {
       if (item === message) {
+        const options = {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({...message, heard: !message.heard})
+        }
+
+        fetch(`http://localhost:4000/data/${message.id}`, options).then(response => {
+          return response.json()
+        })
         return {
           ...item,
           heard: value
