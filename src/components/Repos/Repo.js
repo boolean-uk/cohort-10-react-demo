@@ -23,6 +23,10 @@ function Repo() {
       });
   }, []);
 
+  const handleSubmit = (e) => {
+  e.preventDefault()
+}
+
   return (
     <>
       {notFound ? (
@@ -39,6 +43,12 @@ function Repo() {
           </ul>
         </div>
       )}
+      <form onSubmit={handleSubmit}>
+        <label></label>
+        <input type="text" value=""></input>
+        <input type="submit" value="Add"></input>
+      </form>
+    
     </>
   );
 }
