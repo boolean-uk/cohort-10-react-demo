@@ -7,24 +7,33 @@ import { Message } from '../Message'
 function MessageBoard () {
 
   const [messages, setMessages] = useState([])
-  const [inputMessage, setInputMessage] = useState('')
-  const [formData, setFormData] = useState({})
+  const [content, setContent] = useState()
+  const [author, setAuthor] = useState()
 
 useEffect(() => {
   fetch('http://localhost:4000/messagesData')
   .then(res => res.json())
-  .then(data =>setMessages(data))
+  .then((json) =>setMessages(json))
 }, [])
 
 //update this handler
 
+const changeContent = (e) => {
+  setContent(e.target.value)
+}
+const changeAuthor = (e) => {
+  setAuthor(e.target.value)
+}
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('e.target', e.target)
-    console.log('e.target value', e.target.value)
+    console.log('content', content)
+    console.log('author', author)
 
     const newMessage = {
-      content: e.target.value,
+      content,
+      author,
+      heard: false,
     }
 
   const options = {
@@ -34,8 +43,10 @@ useEffect(() => {
     }
 
     fetch('http://localhost:4000/messagesData', options)
-    .then(res => res.json())
-    .then(data =>setInputMessage(data))
+    .then(function (response) {
+      return response.json()
+    })
+    setMessages([...messages, newMessage])
   }
 
 //update this handler
@@ -47,13 +58,18 @@ useEffect(() => {
   //     }
   //   })
   //   setMessages(newMessages)
+  //   const opts = {
+  //     method: 'DELETE'
+  //   }
+  //   fetch(`http://localhost:4000/messagesData/`, opts)
+  //   .then(function (response) {
+  //     return response.text()
+  //   }
+
   // }
 
 //update this handler
 
-  const handleUpdate = (e) => {
-    setFormData({...formData, content: e.target.value})
-  }
 
 
 //check render is pointing to correct functions
@@ -61,16 +77,15 @@ useEffect(() => {
   return (
     <div>
       {console.log('messages', messages)}
-      {console.log('inputMessage', inputMessage)}
       <form onSubmit={handleSubmit}>
         <label htmlFor="content">
           What's your fave saying?
         </label>
-        <input id="content" type="text" name='content' value={formData.content}/>
+        <input id="content" type="text" name='content' onChange={changeContent} value={content}/>
         <label htmlFor="author">
           Who said it?
         </label>
-        <input id="author" type="text" name='author'/>
+        <input id="author" type="text" name='author' onChange={changeAuthor} value={author}/>
 
         <button>share</button>
       </form>
@@ -81,7 +96,7 @@ useEffect(() => {
               key={index}
               message={messageObj}
               // handleDelete={handleDelete}
-              handleUpdate={handleUpdate}
+              // handleUpdate={handleUpdate}
             />
           )
         })
