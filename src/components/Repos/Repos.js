@@ -1,4 +1,5 @@
 import './Repos.css'
+import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react'
 
 // show all repositories for me on the page by default when i load the page.
@@ -53,7 +54,7 @@ function Repos () {
       {
         repos.map((repo => (
           <div>
-              {repo.name}
+              <Link to={`/${username}/${repo.name}`}>{repo.name}</Link>
           </div>
         )))
       }
