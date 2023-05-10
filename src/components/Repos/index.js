@@ -1,5 +1,4 @@
-import Repos from './Repos'
+import Repos from "./Repos";
+import Repo from "./Repo";
 
-export {
-  Repos
-}
+export { Repos, Repo };
