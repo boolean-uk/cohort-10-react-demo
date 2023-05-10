@@ -1,17 +1,17 @@
-import './App.css';
-import { MessageBoard } from './components/MessageBoard'
+import "./App.css";
+import { Routes, Route, Link } from "react-router-dom";
+import { Repos, Repo } from "./components/Repos";
 
 function App() {
-
   return (
     <>
-      <h1>Message Board</h1>
-        <div>
-          <MessageBoard />
-        </div>
+      <Link to="/">home</Link>
+      <Routes>
+        <Route path="/" element={<Repos />} />
+        <Route path="/:username/:reponame" element={<Repo />} />
+      </Routes>
     </>
-
   );
 }
 
-export default App
+export default App;
