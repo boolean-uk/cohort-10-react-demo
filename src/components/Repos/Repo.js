@@ -1,22 +1,19 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-
 function Repo() {
   const [repo, setRepo] = useState({});
   const [notFound, setNotFound] = useState(false);
-  const [notes, setNotes] = useState();
-  const [formData, setFormData] = useState()
+  const [notes, setNotes] = useState([]);
+  const [formData, setFormData] = useState();
 
   const params = useParams();
 
   useEffect(() => {
-    fetch('http://localhost:4000/initialNote')
-    .then(res => res.json())
-    .then((json) =>setNotes(json))
-  }, [])
-  
-
+    fetch("http://localhost:4000/initialNote")
+      .then((res) => res.json())
+      .then((json) => setNotes(json));
+  }, []);
 
   useEffect(() => {
     //  https://api.github.com/repos/OWNER/REPO
@@ -35,20 +32,20 @@ function Repo() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newText = formData
+    const newText = formData;
     console.log("event", e.target.value);
     const newNote = {
       note: newText,
     };
     setNotes([...notes, newNote]);
     console.log("note", notes);
-    
-    setFormData("")
+
+    setFormData("");
   };
 
-    const handleChange = (e) => {
-      setFormData(e.target.value)
-    }  
+  const handleChange = (e) => {
+    setFormData(e.target.value);
+  };
 
   return (
     <>
@@ -58,6 +55,7 @@ function Repo() {
         </div>
       ) : (
         <div>
+          {console.log("note", notes)}
           <ul>
             <li>name: {repo.name}</li>
             <li>forks: {repo.forks}</li>
@@ -69,24 +67,24 @@ function Repo() {
       <h3>Note section:</h3>
       <form onSubmit={handleSubmit}>
         <label>
-          <input 
-          type="text"
-          placeholder="Add note here"
-          id="note"
-          value= {formData}
-          onChange={handleChange}
-          >
-        </input>
+          <input
+            type="text"
+            placeholder="Add note here"
+            id="note"
+            value={formData}
+            onChange={handleChange}
+          ></input>
         </label>
 
         <input type="submit" value="Add"></input>
-        
       </form>
-      
-
-      {/* {notes.map((noteObj) => {
-        return <div key={ noteObj.note }> {noteObj.note} </div>
-      })} */}
+      {notes.length > 0 ? (
+        notes.map((noteObj, index) => {
+          return <div key={index}> {noteObj.note} </div>;
+        })
+      ) : (
+        <p>No notes found!</p>
+      )}
     </>
   );
 }
