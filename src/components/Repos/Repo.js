@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams } from "react-router-dom"
+import { Notes } from './'
 
 
 function Repo () {
@@ -43,6 +44,7 @@ function Repo () {
           </div>
         )
       }
+      <Notes />
     </>
   )
 }
