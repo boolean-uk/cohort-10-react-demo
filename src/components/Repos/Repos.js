@@ -10,12 +10,12 @@ import { useState, useEffect } from 'react'
 // I should be able to navigate back to the home page showing a list of repositories for the user
 
 const initialFormData = {
-  github: 'dearshrewdwit'
+  github: 'ManNavic'
 }
 
 function Repos () {
   const [repos, setRepos] = useState([])
-  const [username, setUsername] = useState('dearshrewdwit')
+  const [username, setUsername] = useState('ManNavic')
   const [formData, setFormData] = useState(initialFormData)
   const [notFound, setNotFound] = useState(false)
 
