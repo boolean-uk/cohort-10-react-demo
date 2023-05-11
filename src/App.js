@@ -9,9 +9,7 @@ function App() {
   return (
     <>
       <Link to="/">Home</Link>
-      
-      {/* <button onClick={goBack}>Notes</button> */}
-
+  
       <Routes>
         <Route path="/" element={<Repos />} />
         <Route path="/:username/:reponame" element={<Repo />} />

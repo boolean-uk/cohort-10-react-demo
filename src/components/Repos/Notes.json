@@ -1,12 +1,16 @@
 {
   "initialNote": [
     {
-      "id" : 1,
+      "id": 1,
       "note": "Good job!"
     },
     {
-      "id" : 2,
+      "id": 2,
       "note": "Nice code!"
+    },
+    {
+      "note": "vdfbd",
+      "id": 3
     }
   ]
 }
