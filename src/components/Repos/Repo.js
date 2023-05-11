@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 
 function Repo () {
   const [repo, setRepo] = useState({})
   const [notFound, setNotFound] = useState(false)
+  const [noteList, setNoteList] = useState([])
 
   const params = useParams()
-  console.log(params)
+  // console.log(params)
 
   useEffect(() => {
     //  https://api.github.com/repos/OWNER/REPO
@@ -16,13 +17,35 @@ function Repo () {
       if (data.message === 'Not Found') {
         setNotFound(true)
       } else {
-        console.log(data)
+        // console.log(data)
         setNotFound(false)
         setRepo(data)
       }
     })
   }, [])
+  
+  useEffect(() => {    
+    fetch("http://localhost:4000/Note")
+    .then(res => res.json())
+    .then(data => {
 
+      const array = []
+      for (let i = data.length - 1; i > -1; i--) {
+        if (data[i].repo === params.reponame) {
+          array.push(data[i])
+        }
+      }
+      setNoteList(array)
+    })
+  }, [noteList])
+
+  const handleDelete = (idNum) => {
+    fetch(`http://localhost:4000/Note/${idNum}`, {
+      method: 'DELETE'
+    })
+  }
+
+  // console.log('note', noteList)
 
   return (
     <>
@@ -40,6 +63,17 @@ function Repo () {
           </div>
         )
       }
+      <Link to={`/${params.username}`}>Back to User</Link>
+      <Link to={`/${params.username}/${params.reponame}/notes/add`}>
+        <button>Add note</button>
+      </Link>
+      <h1>Notes</h1>
+      <div>
+        <ul>
+          { noteList.map(item => {
+          return <li>{item.note} <button onClick={()=>{handleDelete(item.id)}}>Delete</button><Link to={`/${params.username}/notes/${item.id}/edit`}><button>Edit</button></Link></li>})}
+        </ul>
+      </div>
     </>
   )
 }
