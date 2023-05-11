@@ -1,21 +1,43 @@
 import { useState } from "react";
 
+
+
+
 function AddNoteForm() {
   const [notes, setNotes] = useState([]);
   const [formData, setFormData] = useState();
+  const [newId, setNewId] = useState()
+  const [newNotes, setNewNote] = useState()
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const newText = formData;
+    const  idData = newId;
     console.log("event", e.target.value);
+
     const newNote = {
+      id: idData,
       note: newText,
     };
+
     setNotes([...notes, newNote]);
-    console.log("note", notes);
+    setNewId([...notes, newId])
+    console.log("notessss", newId);
 
     setFormData("");
+
+    const options = {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newNote)
+    }
+console.log('option', options)
+    fetch('http://localhost:4000/initialNote', options)
+    .then(function (response) {
+      return response.json()
+    })
+    setNewNote([...notes, newNotes])
   };
 
   const handleChange = (e) => {
@@ -36,7 +58,16 @@ function AddNoteForm() {
 
         <input type="submit" value="Add"></input>
       </form>
+      {notes.length > 0 ? (
+        notes.map((noteObj, index) => {
+          console.log('hello', notes)
+          return <div key={index}> {noteObj.note} </div>;
+        })
+      ) : (
+        <p>No notes found!</p>
+      )}
     </>
+  
   );
 }
 

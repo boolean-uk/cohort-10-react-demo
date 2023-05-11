@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom"; // ADD USE NAVIGATE
-// import { AddNoteForm } from "./AddNoteForm";
+// import  AddNoteForm  from "./AddNoteForm";
 
 function Repo() {
   const [repo, setRepo] = useState({});
@@ -30,6 +30,11 @@ function Repo() {
         }
       });
   }, []);
+
+  const handleAddNote = (newNote) => {
+    setNotes([...notes, newNote])
+  } 
+
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -78,6 +83,8 @@ function Repo() {
         <button>Notes</button>
       </Link>
      
+     {/* <AddNoteForm onClick={handleAddNote}/> */}
+
       {/* <form onSubmit={handleSubmit}>
         <label>
           <input
@@ -91,9 +98,10 @@ function Repo() {
 
         <input type="submit" value="Add"></input>
       </form> */}
+      
       {notes.length > 0 ? (
         notes.map((noteObj, index) => {
-          return <div key={index}> {noteObj.note} </div>;
+          return <div key={index}> {noteObj.note}  </div>;
         })
       ) : (
         <p>No notes found!</p>
