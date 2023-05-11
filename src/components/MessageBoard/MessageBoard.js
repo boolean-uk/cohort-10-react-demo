@@ -1,24 +1,38 @@
 // what state does my app need?
-import { useState } from 'react'
+import { useState, useEffect} from 'react'
 import { Message } from '../Message'
 
-const initialMessages = [
-  {
-    content: "'No', says Tom Kennedy",
-    author: 'Tom K',
-    heard: true
-  },
-  {
-    content: "Good Morning, Good Afternoon, Good Evening, Good Night!",
-    author: 'Hamza AK',
-    heard: false
-  }
-]
+
 
 function MessageBoard () {
 
-  const [messages, setMessages] = useState(initialMessages)
+  const [messages, setMessages] = useState([])
 
+  // const initialFormData = [
+  //   {
+  //     content: "'No', says Tom Kennedy",
+  //     author: "Tom K",
+  //     heard: true
+  //   },
+  //   {
+  //     content: "Good Morning, Good Afternoon, Good Evening, Good Night!",
+  //     author: "Hamza AK",
+  //     heard: false
+  //   }
+  // ]
+
+
+  useEffect(() => {
+    fetch("http://localhost:4000/db")
+    .then(response => response.json())
+    .then(data => {
+
+      console.log(Object.values(data)[0])
+      setMessages(Object.values(data)[0])
+      
+    })
+
+  }, [])
   // given i type some text in the input field
   // when i click on the button
   // then i should see the text display in the list
@@ -39,13 +53,28 @@ function MessageBoard () {
       heard: false
     }
 
-    console.log(newMessage)
+    const options = {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(newMessage)
+    }
+   
+
+    fetch('http://localhost:4000/db', options)
+    .then(response => response.json())
+    .then(data => setMessages([...messages, data]))
+    
+  
+    
+    
     // COPY THE ARRAY
     // const newMessages = messages.map(message => message)
     // messages.push(newMessage) // NO NO NOPE, NEIN, RARA
     // newMessages.push(newMessage) //yes, yes, yes, yes
     // const newMessages = [...messages, newMessage]
-    setMessages([...messages, newMessage])
+    
   }
 
   const handleDelete = (message) => {
@@ -55,6 +84,19 @@ function MessageBoard () {
         return message
       }
     })
+
+
+   console.log(messages[messages.indexOf(message)].id)
+
+    const options = {
+      method: "DELETE"
+    }
+    
+  
+
+    fetch(`http://localhost:4000/db/${messages[messages.indexOf(message)].id}`, options)
+    .then(response => response.json())
+
     setMessages(newMessages) // the new array (without the one i'm deleting)
   }
 
@@ -71,17 +113,20 @@ function MessageBoard () {
       }
     })
 
+    const options = {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({...message, heard: !message.heard})
+    }
+
+
+    fetch(`http://localhost:4000/db/${message.id}`, options)
+    .then(response => response.json())
+
     setMessages(newMessages)
-    // const messageToUpdate = messages.find(item => item === message)
-    // const updatedMessage = {
-    //   ...messageToUpdate,
-    //   heard: value
-    // }
-    // const filteredMessages = messages.filter(item => item !== message)
-    // // const newMessages =
-    // filteredMessages.push(updatedMessage) // inserts at the end
-    //
-    // setMessages(filteredMessages)
+    
   }
 
 
