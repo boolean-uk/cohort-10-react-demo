@@ -12,19 +12,19 @@ function Repos () {
   const [formData, setFormData] = useState(initialFormData)
   const [notFound, setNotFound] = useState(false)
 
-  // useEffect(() => {
-  //   // https://api.github.com/users/${username}/repos
-  //   fetch(`https://api.github.com/users/${username}/repos`)
-  //     .then(res => res.json()) // read the response format which is stored in JSON
-  //     .then(data => {
-  //     if (data.message === 'Not Found') {
-  //       setNotFound(true)
-  //     } else {
-  //       setNotFound(false)
-  //       setRepos(data)
-  //     }
-  //   })
-  // }, [username])
+  useEffect(() => {
+    // https://api.github.com/users/${username}/repos
+    fetch(`https://api.github.com/users/${username}/repos`)
+      .then(res => res.json()) // read the response format which is stored in JSON
+      .then(data => {
+      if (data.message === 'Not Found') {
+        setNotFound(true)
+      } else {
+        setNotFound(false)
+        setRepos(data)
+      }
+    })
+  }, [username])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -36,8 +36,6 @@ function Repos () {
   }
 
   const testFunction = () => {
-    console.log(`username`, username)
-    console.log(`repos`, repos)
     const tempRepos = [
       {"name": "cohort-10-react-demo"},
       {"name": "html-adding-the-rest"}
@@ -57,7 +55,7 @@ function Repos () {
       </form>
       {
         repos.map((repo => (
-          <div>
+          <div key={repo.name}>
               <Link to={`/${username}/${repo.name}`}>{repo.name}</Link>
           </div>
         )))

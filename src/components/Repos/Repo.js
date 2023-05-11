@@ -1,29 +1,28 @@
+import './repo.css'
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react'
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
-function Repo () {
+function Repo ({editedNote, setEditedNote}) {
   const [repo, setRepo] = useState({})
   const [notFound, setNotFound] = useState(false)
   const [notes, setNotes] = useState([])
 
   const params = useParams()
-  // console.log(params)
+  const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   //  https://api.github.com/repos/OWNER/REPO
-  //   fetch(`https://api.github.com/repos/${params.username}/${params.reponame}`)
-  //     .then(res => res.json()) // read the response format which is stored in JSON
-  //     .then(data => {
-  //     if (data.message === 'Not Found') {
-  //       setNotFound(true)
-  //     } else {
-  //       // console.log(data)
-  //       setNotFound(false)
-  //       setRepo(data)
-  //     }
-  //   })
-  // }, [])
+  useEffect(() => {
+    fetch(`https://api.github.com/repos/${params.username}/${params.reponame}`)
+      .then(res => res.json())
+      .then(data => {
+      if (data.message === 'Not Found') {
+        setNotFound(true)
+      } else {
+        setNotFound(false)
+        setRepo(data)
+      }
+    })
+  }, [])
 
   useEffect(() => {
     fetch(`http://localhost:4000/Notes`)
@@ -34,13 +33,7 @@ function Repo () {
   }, [])
 
   const testFunction = () => {
-    const testRepo = {
-      name: "cohort-10-react-demo",
-      forks: 0,
-      stars: 0,
-      visibility: "public"
-    }
-    setRepo(testRepo)
+    console.log(notes)
   }
 
   const testFetch = () => {
@@ -52,12 +45,21 @@ function Repo () {
     }
     setRepo(testRepo)
 
-    // fetch(`http://localhost:4000/Notes/?repo=cohort-10-react-demo`)
     fetch(`http://localhost:4000/Notes`)
     .then(res => res.json())
     .then(data => {
       setNotes(data)
     })
+  }
+
+  const handleEditButton = (note) => {
+    setEditedNote(note)
+    navigate(`/${params.username}/notes/${note.id}/edit`)
+  }
+
+  const handleAddButton = () => {
+    setEditedNote("")
+    navigate(`/${params.username}/${repo.name}/notes/add`)
   }
 
 
@@ -77,27 +79,18 @@ function Repo () {
           </div>
         )
       }
-      <Link to={`/${params.username}/${repo.name}/notes/add`} >
-        <button>Add Note</button>
-      </Link>
+      <button onClick={handleAddButton} >Add Note</button>
       <button onClick={testFunction} >TEST</button>
       <button onClick={testFetch} >TEST FETCH</button>
       <h2>Notes</h2>
       <div>
         <ul>
-          {/* {notes.map(item => {
+          {notes.map(item => {
             if (item.user === params.username && item.repo === repo.name) {
-              return <li>{item.note}</li>
+              return <li key={item.id}>{item.note}
+              <button onClick={() => handleEditButton(item)} >EDIT</button></li>
             }
-          })} */}
-          {notes
-            .filter(item => item.user === params.username && item.repo === repo.name)
-            .reverse()
-            .map(item => {
-              return <li key={item.id}>{item.note}</li>
-            })
-
-          }
+          })}
         </ul>
       </div>
     </>
