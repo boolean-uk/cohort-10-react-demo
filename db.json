@@ -33,6 +33,11 @@
         "id": 1,
         "content": "Hey nice calculator"
       }
+    ],
+    "html-grid-components": [
+      {
+        "content": "yo"
+      }
     ]
   }
 }

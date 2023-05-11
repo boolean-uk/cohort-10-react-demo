@@ -20,6 +20,7 @@ function Repos () {
   const [notFound, setNotFound] = useState(false)
   const [avatarUrl, setAvatarUrl] = useState('')
 
+
   useEffect(() => {
     // https://api.github.com/users/${username}/repos
     fetch(`https://api.github.com/users/${username}/repos`)
@@ -43,6 +44,7 @@ function Repos () {
   const handleChange = (e) => {
     setFormData({...formData, github: e.target.value})
   }
+
 
   console.log(repos)
 

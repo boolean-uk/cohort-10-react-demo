@@ -1,13 +1,21 @@
 import './App.css';
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { Repos, Repo } from './components/Repos'
 import Notes from './components/Notes/Notes'
 
 function App() {
 
+  const navigate = useNavigate();
+
+    const goBack = () => {
+        navigate(-1);
+    }
+
+
   return (
     <>
       <Link to="/">home</Link>
+      <button onClick={goBack}>Back</button>
       <Routes>
         <Route
           path='/'
