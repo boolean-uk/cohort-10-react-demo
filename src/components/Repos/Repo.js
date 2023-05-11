@@ -37,7 +37,13 @@ function Repo () {
       }
       setNoteList(array)
     })
-  }, [])
+  }, [noteList])
+
+  const handleDelete = (idNum) => {
+    fetch(`http://localhost:4000/Note/${idNum}`, {
+      method: 'DELETE'
+    })
+  }
 
   // console.log('note', noteList)
 
@@ -57,6 +63,7 @@ function Repo () {
           </div>
         )
       }
+      <Link to={`/${params.username}`}>Back to User</Link>
       <Link to={`/${params.username}/${params.reponame}/notes/add`}>
         <button>Add note</button>
       </Link>
@@ -64,7 +71,7 @@ function Repo () {
       <div>
         <ul>
           { noteList.map(item => {
-          return <li>{item.note}</li>})}
+          return <li>{item.note} <button onClick={()=>{handleDelete(item.id)}}>Delete</button><Link to={`/${params.username}/notes/${item.id}/edit`}><button>Edit</button></Link></li>})}
         </ul>
       </div>
     </>

@@ -1,11 +1,10 @@
 import { useState } from "react"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 
 
 function Notes () {
     const [note, setNote] = useState('')
 
-    const navigate = useNavigate()
     const params = useParams()
 
     function handleSubmit(e) {
@@ -31,7 +30,6 @@ function Notes () {
             return response.json()
         })
         e.target.reset()
-        navigate(`/${params.username}/${params.reponame}`)
     }
 
     function handleChange(e) {
@@ -41,6 +39,7 @@ function Notes () {
 
     return (
         <>
+            <Link to={`/${params.username}/${params.reponame}`}>----Back to Repo</Link>
             <form onSubmit={handleSubmit}>
                 <input type="text" onChange={handleChange}/>
                 <input type="submit" value="Submit" />
