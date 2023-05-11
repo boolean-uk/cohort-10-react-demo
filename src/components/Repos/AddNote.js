@@ -7,13 +7,11 @@ function AddNote() {
   const handleSubmit = (e) => {
     e.preventDefault()
     const commentInput = e.target[0].value
-    const authorInput = e.target[1].value
 
 
 
     const newNote = {
       comment: commentInput,
-      author: authorInput,
       username: urlParams.username,
       repo: urlParams.reponame
     }
@@ -35,9 +33,6 @@ function AddNote() {
     <>
       <form onSubmit={handleSubmit}>
         <label>Comment
-            <input type='text'></input>
-        </label>
-        <label>Author
             <input type='text'></input>
         </label>
             <button>Add new Note</button>

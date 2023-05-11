@@ -13,6 +13,11 @@ function Notes(){
     .then((json) => setNotes(json))
   }, [])
 
+
+  // function handleClick(id){
+
+  // }
+
 return(
     <>
       <ul>
@@ -20,7 +25,10 @@ return(
         notes.map((el) => {
           console.log(`here`,el.username, el.repo)
        if(el.username === username && el.repo === reponame ) {
-       return <li>Comment: {el.comment} Author: {el.author}</li>
+      //  return <li>Comment: {el.comment} Author: {el.author}<button onClick={()=>handleClick(el.id)}>Edit</button> </li>
+      return <li>Comment: {el.comment} <Link to={`/${username}/notes/${el.id}/edit}`}>edit page</Link>
+      </li>
+
       }
     }
         )

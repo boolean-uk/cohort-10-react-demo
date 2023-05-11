@@ -3,10 +3,9 @@ import { Link, useParams } from "react-router-dom"
 import { Notes } from './'
 
 
-function Repo () {
+function Repo ({username, setUsername}) {
   const [repo, setRepo] = useState({})
   const [notFound, setNotFound] = useState(false)
-  const [username, setUsername] = useState('ManNavic')
 
   const params = useParams()
   console.log(params)
@@ -29,12 +28,14 @@ function Repo () {
 
   return (
     <>
+          <Link to={`/${username}`}> <button>Back</button></Link>
+
       {
         notFound ? (
           <div>repo '{params.reponame}' of user '{params.username}' does not exist</div>
         ) : (
           <div>
-            <Link to={`/${username}/${repo.name}/notes/add`}><button>Add Note</button></Link>
+            <Link to={`/${username}/${repo.name}/notes/add`}><button>Add Note</button> </Link>
             <ul>
               <li>name: {repo.name}</li>
               <li>forks: {repo.forks}</li>
