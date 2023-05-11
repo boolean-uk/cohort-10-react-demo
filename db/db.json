@@ -29,13 +29,6 @@
       "id": 4
     },
     {
-      "comment": "good job",
-      "author": "Nik",
-      "username": "Klimcuks",
-      "repo": "boolean-uk-grid-components",
-      "id": 5
-    },
-    {
       "comment": "ds",
       "author": "fdf",
       "username": "Klimcuks",
@@ -47,6 +40,18 @@
       "username": "Klimcuks",
       "repo": "assignments",
       "id": 7
+    },
+    {
+      "comment": "dddd",
+      "username": "ample-samples",
+      "repo": "html-boolean-image-grid",
+      "id": 8
+    },
+    {
+      "comment": "comment",
+      "username": "ample-samples",
+      "repo": {},
+      "id": 9
     }
   ]
 }

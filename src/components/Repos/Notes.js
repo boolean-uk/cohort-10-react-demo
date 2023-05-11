@@ -7,16 +7,32 @@ function Notes(){
   const { username, reponame  } = useParams()
   console.log('username', username)
 
-  useEffect(() => {
+
+  const getNotes = () => {
     fetch("http://localhost:4000/data")
     .then((res) => res.json())
     .then((json) => setNotes(json))
+  }
+
+  useEffect(() => {
+    getNotes()
   }, [])
 
+  const deleteComment = (id) => {
+    // When deleting a comment, and refreshing the page
+    const options = {
+      method: "DELETE"
+    }
 
-  // function handleClick(id){
+    fetch(`http://localhost:4000/data/${id}`, options) 
+    .then(response => {
+      return response.json()
+    })
+    .then(() => {
+        getNotes()
+      })
+  }
 
-  // }
 
 return(
     <>
@@ -26,9 +42,7 @@ return(
           console.log(`here`,el.username, el.repo)
        if(el.username === username && el.repo === reponame ) {
       //  return <li>Comment: {el.comment} Author: {el.author}<button onClick={()=>handleClick(el.id)}>Edit</button> </li>
-      return <li>Comment: {el.comment} <Link to={`/${username}/notes/${el.id}/edit}`}>edit page</Link>
-      </li>
-
+      return <li>Comment: {el.comment} <Link to={`/${username}/notes/${el.id}/edit`}>edit page</Link> <button onClick={() => deleteComment(el.id)}>delete</button></li>
       }
     }
         )
