@@ -1,6 +1,7 @@
 import './App.css';
+import { useState } from 'react';
 import { Routes, Route, Link } from "react-router-dom";
-import { Repos, Repo } from './components/Repos'
+import { Repos, Repo, AddNote } from './components/Repos'
 
 function App() {
 
@@ -15,6 +16,10 @@ function App() {
         <Route
           path='/:username/:reponame'
           element={<Repo />}
+        />
+        <Route 
+        path='/:username/:reponame/notes/add'
+        element={<AddNote />}
         />
       </Routes>
     </>
