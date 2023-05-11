@@ -45,9 +45,10 @@ function AddNoteForm() {
   const handleChange = (e) => {
     setFormData(e.target.value);
   };
+
   return (
     <>
-      <Link to={`/${params.username}/${params.reponame}`}>Go back!</Link>
+      <Link to={`/${params.username}/${params.reponame}`}> Notes!</Link>
       <form onSubmit={handleSubmit}>
         <label>
           <input
@@ -57,8 +58,7 @@ function AddNoteForm() {
             value={formData}
             onChange={handleChange}
           ></input>
-        </label>
-
+        </label>{" "}
         <input type="submit" value="Add"></input>
       </form>
       {notes.length > 0 ? (
