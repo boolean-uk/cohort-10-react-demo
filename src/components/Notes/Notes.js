@@ -12,7 +12,7 @@ function Notes() {
     e.preventDefault()
     setNote(formData.content)
     postNote()
-    .then(() => window.location.replace(`http://localhost:3000/${params.username}/${params.reponame}`))
+    // .then(() => window.location.replace(`http://localhost:3000/${params.username}/${params.reponame}`))
   }
 
   const handleOnChange = e => {
@@ -20,34 +20,98 @@ function Notes() {
   }
 
   const postNote = async () => {
-    return fetch(`http://localhost:3001/${params.username}`)
-    .then(res => res.json())
+    return fetch(`http://localhost:3001/users`)
     .then(res => {
-      let notesArray = []
-      if(res[params.reponame]) {
-        notesArray = res[params.reponame]
+      console.log(res.status)
+      if(res.status === 404) {
+        createUser()
       }
+      res.json()
+    })
+    .then(res => {   
+      console.log('response', res)   
+      const usersArray = res
+      let currentUser = ''
+      let newNotes = ''
 
-      notesArray.unshift({...formData})
-      console.log('notesArray:', notesArray)
+      usersArray.forEach(user => {
+        if(user.username === params.username) {
+          user.repos.forEach(repo => {
+            if(repo.reponame === params.reponame) { 
+              currentUser = user    
+              newNotes = [{...formData}, ...repo.notes]
+              repo.notes = newNotes
+            }
+          })
+        } else {
+          createUser()
+        }
 
-      const body = {}
-      body[params.reponame] = notesArray
-      const options = {
-        method: 'PATCH',
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(body)
-      }
+        let id = currentUser.id !== undefined ? (currentUser.id) : ("")
+        const body = {
+          "id": id,
+          "username": params.username,
+          "repos": currentUser.repos
+        }
+  
+        const options = {
+          method: 'PATCH',
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(body)
+        }
+  
+        fetch(`http://localhost:3001/users/${currentUser.id}`, options)
+        .then(res => res.json())
+        .then(res => console.log("response", res))
+        .catch(err => console.error(err));
+      })
 
-      console.log('options', options.body)
-      console.log('username', params.username)
+      
 
-      fetch(`http://localhost:3001/${params.username}`, options)
-      .then(res => res.json())
-      .then(res => console.log("response", res))
-      .catch(err => console.error(err));
+      // let notesArray = []
+      // if(res[params.reponame]) {
+      //   notesArray = res[params.reponame]
+      // }
+
+      // notesArray.unshift({...formData})
+      // console.log('notesArray:', notesArray)
+
+      // const body = {}
+      // body[params.reponame] = notesArray
+      // const options = {
+      //   method: 'PATCH',
+      //   headers: {"Content-Type": "application/json"},
+      //   body: JSON.stringify(body)
+      // }
+
+      // console.log('options', options.body)
+      // console.log('username', params.username)
+
+      // fetch(`http://localhost:3001/${params.username}`, options)
+      // .then(res => res.json())
+      // .then(res => console.log("response", res))
+      // .catch(err => console.error(err));
     })
     
+  }
+
+  const createUser = () => {
+    const body = {
+      "id": "",
+      "username": params.username,
+      "repos": []
+    }
+
+    const options = {
+      method: 'POST',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(body)
+    }
+
+    fetch(`http://localhost:3001/users`, options)
+    .then(res => res.json())
+    .then(res => console.log("created user:", res))
+    .catch(err => console.error(err));
   }
   return (
 

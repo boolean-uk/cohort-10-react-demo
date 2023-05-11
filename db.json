@@ -1,51 +1,26 @@
 {
-  "gabriel-rosengren": {
-    "cohort-10-react-demo": [
-      {
-        "content": "fdssd"
-      }
-    ],
-    "calculator": [
-      {
-        "content": "aaaa"
-      },
-      {
-        "content": "vcxcv"
-      },
-      {
-        "content": "gdsdg"
-      }
-    ],
-    "html-full-stack-portfolio": [
-      {
-        "content": "dsasd"
-      }
-    ],
-    "js-dom-todos": [
-      {
-        "content": "todos"
-      }
-    ],
-    "html-adding-the-rest": [
-      {
-        "content": "Yo"
-      },
-      {
-        "content": "ff"
-      }
-    ]
-  },
-  "rockettdev": {
-    "somerepo": [
-      {
-        "id": 1,
-        "content": "Hey nice calculator"
-      }
-    ],
-    "html-grid-components": [
-      {
-        "content": "yo"
-      }
-    ]
-  }
+  "users": [
+    {
+      "id": 1,
+      "username": "gabriel-rosengren",
+      "repos": [
+        {
+          "reponame": "calculator",
+          "notes": [
+            {
+              "content": "dsadsadas"
+            },
+            {
+              "content": "Hey cool calculator"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "username": "ethan-oien",
+      "repos": []
+    }
+  ]
 }

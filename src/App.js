@@ -31,10 +31,10 @@ function App() {
           path='/:username/:reponame/notes/add'
           element={<Notes/>}
         />
-        <Route
+        {/* <Route
           path='/:username/:reponame/notes/:id/edit'
           element={<NotesEdit/>}
-        />
+        /> */}
       </Routes>
     </>
   );

@@ -24,15 +24,21 @@ function Repo () {
 
   const fetchNotes = () => {
     console.log("reponame", params.reponame)
-    fetch(`http://localhost:3001/${params.username}`)
+    fetch(`http://localhost:3001/users`)
     .then(res => res.json())
     .then(res => {
-      if(params.reponame in res) {
-        setNotes(res[params.reponame])
-      } else {
-        console.log('no notes found')
-      }
-      
+      const usersArray = res
+      usersArray.forEach(user => {
+        if(user.username === params.username) {
+          const reposArray = user.repos
+          reposArray.forEach(repo => {
+            if(repo.reponame === params.reponame) {
+              setNotes(repo.notes)
+              console.log(repo.notes)
+            }
+          })
+        }
+      })
     })
     .catch(err => console.log(err))
   }
