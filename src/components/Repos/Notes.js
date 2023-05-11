@@ -17,7 +17,13 @@ return(
     <>
       <ul>
       {
-        notes.map((el) => <li>Comment: {el.comment} Author: {el.author}</li>)
+        notes.map((el) => {
+          console.log(`here`,el.username, el.repo)
+       if(el.username === username && el.repo === reponame ) {
+       return <li>Comment: {el.comment} Author: {el.author}</li>
+      }
+    }
+        )
       }
       </ul>
     </>
