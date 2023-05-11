@@ -1,10 +1,23 @@
 import './App.css';
-import { MessageBoard } from './components/MessageBoard'
+import { Routes, Route, Link } from "react-router-dom";
+import { Repos, Repo } from './components/Repos'
 
 function App() {
 
   return (
-    <MessageBoard />
+    <>
+      <Link to="/">home</Link>
+      <Routes>
+        <Route
+          path='/'
+          element={<Repos />}
+        />
+        <Route
+          path='/:username/:reponame'
+          element={<Repo />}
+        />
+      </Routes>
+    </>
   );
 }
 
