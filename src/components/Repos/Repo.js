@@ -50,14 +50,21 @@ function Repo() {
       <Link to={`/${params.username}/${params.reponame}/notes/add`}>
         <button>Notes</button>
       </Link>
-
       {notes.length > 0 ? (
-        notes.map((noteObj, index) => {
+        [...notes].reverse().map((noteObj, index) => {
           return <div key={index}> {noteObj.note} </div>;
         })
       ) : (
         <p>No notes found!</p>
       )}
+
+      {/* {notes.length > 0 ? (
+        notes.map((noteObj, index) => {
+          return <div key={index}> {noteObj.note} </div>;
+        })
+      ) : (
+        <p>No notes found!</p>
+      )} */}
     </>
   );
 }
