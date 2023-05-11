@@ -1,12 +1,11 @@
 Next Steps
 
-* Make notes editable
-* Transform index just in to a search page
-* When search is made, go to /:username page (modify current Repos Page)
-  * Only have search bar on search page
-  * Set up return from individual Repo to users Repos page
+<!-- * When search is made, go to /:username page (modify current Repos Page) -->
+  <!-- * Only have search bar on search page -->
+  <!-- * Set up return from individual Repo to users Repos page -->
   * Pull some more detail from the users github page
-* 
+* Add an ALL NOTES page that shows all notes and where they came from
+  * Add a search field to filter notes
 
 Notes feature
 

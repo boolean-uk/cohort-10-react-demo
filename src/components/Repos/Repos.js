@@ -1,16 +1,8 @@
 import './Repos.css'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react'
 
-const initialFormData = {
-  github: 'alexjshaw'
-}
-
-function Repos () {
-  const [repos, setRepos] = useState([])
-  const [username, setUsername] = useState('alexjshaw')
-  const [formData, setFormData] = useState(initialFormData)
-  const [notFound, setNotFound] = useState(false)
+function Repos ({repos, setRepos, username, setUsername, formData, setFormData, notFound, setNotFound}) {
 
   useEffect(() => {
     // https://api.github.com/users/${username}/repos
@@ -24,23 +16,18 @@ function Repos () {
         setRepos(data)
       }
     })
-  }, [username])
+  }, [username, setNotFound, setRepos])
+
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault()
     setUsername(formData.github)
+    navigate(`/${formData.github}`)
   }
 
-  const handleChange = (e) => {
+const handleChange = (e) => {
     setFormData({...formData, github: e.target.value})
-  }
-
-  const testFunction = () => {
-    const tempRepos = [
-      {"name": "cohort-10-react-demo"},
-      {"name": "html-adding-the-rest"}
-    ]  
-    setRepos(tempRepos)
   }
 
   return (
@@ -48,7 +35,6 @@ function Repos () {
       {
         notFound && <div>user '{username}' does not exist</div>
       }
-      <button onClick={testFunction} >TEST</button>
       <form onSubmit={handleSubmit}>
         <input type="text" name="github" onChange={handleChange} value={formData.github}/>
         <button>get repos</button>

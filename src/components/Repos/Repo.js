@@ -62,9 +62,31 @@ function Repo ({editedNote, setEditedNote}) {
     navigate(`/${params.username}/${repo.name}/notes/add`)
   }
 
+  const handleDelete = (item) => {
+    console.log(item)
+    console.log(item.id)
+    fetch(`http://localhost:4000/Notes/${item.id}`,{
+      method: "DELETE"
+    })
+    .then(() => {
+      fetch("http://localhost:4000/Notes")
+      .then(res => res.json())
+      .then(data => {
+        setNotes(data)
+        console.log(data)
+      })
+    })
+
+  };
+
+  const handleBack = () => {
+    navigate(`/${params.username}`)
+  }
+
 
   return (
     <>
+      <button onClick={handleBack} >BACK</button>
       {
         notFound ? (
           <div>repo '{params.reponame}' of user '{params.username}' does not exist</div>
@@ -80,15 +102,14 @@ function Repo ({editedNote, setEditedNote}) {
         )
       }
       <button onClick={handleAddButton} >Add Note</button>
-      <button onClick={testFunction} >TEST</button>
-      <button onClick={testFetch} >TEST FETCH</button>
       <h2>Notes</h2>
       <div>
         <ul>
           {notes.map(item => {
             if (item.user === params.username && item.repo === repo.name) {
               return <li key={item.id}>{item.note}
-              <button onClick={() => handleEditButton(item)} >EDIT</button></li>
+              <button onClick={() => handleEditButton(item)} >EDIT</button>
+              <button onClick={() => handleDelete(item)} >DELETE</button></li>
             }
           })}
         </ul>
