@@ -34,7 +34,7 @@ function Repos () {
         setAvatarUrl(data[0].owner.avatar_url)
       }
     })
-  }, [username, avatarUrl])
+  }, [username])
 
   const handleSubmit = (e) => {
     e.preventDefault()

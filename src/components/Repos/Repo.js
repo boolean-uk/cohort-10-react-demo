@@ -62,7 +62,8 @@ function Repo () {
         <li>No notes found</li>
         ) : (
           notes.map((note, index) => {
-            return <li key={index}>{note.content}</li>
+            return <li key={index}>{note.content} <Link to={'/' + params.username + '/notes/' + params.id + '/edit'}> Edit </Link> - <Link> Delete </Link></li>
+
           })
         )
       }

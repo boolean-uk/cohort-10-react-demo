@@ -2,6 +2,8 @@ import './App.css';
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { Repos, Repo } from './components/Repos'
 import Notes from './components/Notes/Notes'
+import NotesEdit from './components/Notes/Notesedit'
+
 
 function App() {
 
@@ -28,6 +30,10 @@ function App() {
         <Route
           path='/:username/:reponame/notes/add'
           element={<Notes/>}
+        />
+        <Route
+          path='/:username/:reponame/notes/:id/edit'
+          element={<NotesEdit/>}
         />
       </Routes>
     </>
