@@ -1,6 +1,7 @@
 import { useState } from "react";
-
-
+import { Link } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 
 function AddNoteForm() {
@@ -9,6 +10,11 @@ function AddNoteForm() {
   const [newId, setNewId] = useState()
   const [newNotes, setNewNote] = useState()
 
+  const params = useParams();
+    // const navigate = useNavigate()
+    // navigate(-1)
+
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -45,6 +51,8 @@ console.log('option', options)
   };
   return (
     <>
+    {/* <button>Go Back</button> */}
+    <Link to={`/${params.username}/${params.reponame}`}>Go back!</Link>
       <form onSubmit={handleSubmit}>
         <label>
           <input

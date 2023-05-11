@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom"; // ADD USE NAVIGATE
-// import  AddNoteForm  from "./AddNoteForm";
+import  AddNoteForm  from "./AddNoteForm";
 
 function Repo() {
   const [repo, setRepo] = useState({});
@@ -80,6 +80,7 @@ function Repo() {
       )}
       <h3>Note section:</h3>
       <Link to={`/${params.username}/${params.reponame}/notes/add`}>
+      
         <button>Notes</button>
       </Link>
      
