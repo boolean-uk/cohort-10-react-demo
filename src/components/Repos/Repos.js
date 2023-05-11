@@ -13,23 +13,21 @@ const initialFormData = {
   github: 'ManNavic'
 }
 
-function Repos () {
+function Repos ({ username, setUsername, notFound, setNotFound}) {
   const [repos, setRepos] = useState([])
-  const [username, setUsername] = useState('ManNavic')
+  // const [username, setUsername] = useState('ManNavic')
   const [formData, setFormData] = useState(initialFormData)
-  const [notFound, setNotFound] = useState(false)
-  const [repoData, setRepoData]= useState([])
+  // const [repoData, setRepoData]= useState([])
 
   useEffect(() => {
-    // https://api.github.com/users/${username}/repos
     fetch(`https://api.github.com/users/${username}/repos`)
       .then(res => res.json()) // read the response format which is stored in JSON
       .then(data => {
       if (data.message === 'Not Found') {
-        setNotFound(true)
+        // setNotFound(true)
       } else {
         // console.log(data)
-        setNotFound(false)
+        // setNotFound(false)
         setRepos(data)
         
       }
@@ -39,21 +37,6 @@ function Repos () {
   useEffect(() => {
     handleData()
   }, [repos])
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('repos', repos, '\n', 'repoData', repoData)
-    const userName = formData.github
-    setUsername(userName)
-    // if the username key doesn't exist inside of db.json, create it and 
-    // give it a value of an object, which has keys for each repo name and 
-    // values (for those keys) of an empty array
-    if (!repos.hasOwnProperty(userName)) {
-      repos[userName] = {}
-    // repoData
-
-    }
-  }
 
   const handleChange = (e) => {
     setFormData({...formData, github: e.target.value})
@@ -67,18 +50,11 @@ function Repos () {
       // console.log(reposData)
       reposList.push(reposData)
     }
-    setRepoData(reposList)
+    // setRepoData(reposList)
   }
 
   return (
     <>
-      {
-        notFound && <div>user '{username}' does not exist</div>
-      }
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="github" onChange={handleChange} value={formData.github}/>
-        <button>get repos</button>
-      </form>
       {
         repos.map((repo => (
           <div>

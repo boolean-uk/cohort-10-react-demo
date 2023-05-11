@@ -11,14 +11,12 @@ import { useState, useEffect } from 'react'
 // I should be able to navigate back to the home page showing a list of repositories for the user
 
 const initialFormData = {
-  github: 'ManNavic'
+  github: ''
 }
 
-function Search () {
+function Search ({username, setUsername, notFound, setNotFound}) {
   const [repos, setRepos] = useState([])
-  const [username, setUsername] = useState('ManNavic')
   const [formData, setFormData] = useState(initialFormData)
-  const [notFound, setNotFound] = useState(false)
   const [repoData, setRepoData]= useState([])
   const navigate = useNavigate()
 
@@ -44,7 +42,7 @@ function Search () {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('repos', repos, '\n', 'repoData', repoData)
+    // console.log('repos', repos, '\n', 'repoData', repoData)
     const userName = formData.github
     setUsername(userName)
     // if the username key doesn't exist inside of db.json, create it and 
@@ -55,7 +53,7 @@ function Search () {
     // repoData
 
     }
-    navigate(`/${username}`)
+    navigate(`/${userName}`)
   }
 
   const handleChange = (e) => {
@@ -78,6 +76,7 @@ function Search () {
       {
         notFound && <div>user '{username}' does not exist</div>
       }
+
       <form onSubmit={handleSubmit}>
         <input type="text" name="github" onChange={handleChange} value={formData.github}/>
         <button>get repos</button>
