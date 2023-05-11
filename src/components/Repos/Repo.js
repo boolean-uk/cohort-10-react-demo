@@ -1,28 +1,47 @@
 import { useState, useEffect } from 'react'
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 function Repo () {
   const [repo, setRepo] = useState({})
   const [notFound, setNotFound] = useState(false)
+  const [notes, setNotes] = useState([])
 
   const params = useParams()
-  console.log(params)
 
   useEffect(() => {
-    //  https://api.github.com/repos/OWNER/REPO
+    fetchNotes()
     fetch(`https://api.github.com/repos/${params.username}/${params.reponame}`)
       .then(res => res.json()) // read the response format which is stored in JSON
       .then(data => {
       if (data.message === 'Not Found') {
         setNotFound(true)
       } else {
-        console.log(data)
         setNotFound(false)
         setRepo(data)
       }
     })
   }, [])
 
+  const fetchNotes = () => {
+    console.log("reponame", params.reponame)
+    fetch(`http://localhost:3001/users`)
+    .then(res => res.json())
+    .then(res => {
+      const usersArray = res
+      usersArray.forEach(user => {
+        if(user.username === params.username) {
+          const reposArray = user.repos
+          reposArray.forEach(repo => {
+            if(repo.reponame === params.reponame) {
+              setNotes(repo.notes)
+              console.log(repo.notes)
+            }
+          })
+        }
+      })
+    })
+    .catch(err => console.log(err))
+  }
 
   return (
     <>
@@ -40,6 +59,22 @@ function Repo () {
           </div>
         )
       }
+      <button>
+        <Link to={'/' + params.username + '/' + repo.name + '/notes/add'}>Add Note</Link>
+      </button>
+      <ul>
+      {
+        notes.length === 0 ? (
+        <li>No notes found</li>
+        ) : (
+          notes.map((note, index) => {
+            return <li key={index}>{note.content} <Link to={'/' + params.username + '/notes/' + params.id + '/edit'}> Edit </Link> - <Link> Delete </Link></li>
+
+          })
+        )
+      }
+      </ul>
+      
     </>
   )
 }

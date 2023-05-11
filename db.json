@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "gabriel-rosengren",
+      "repos": [
+        {
+          "reponame": "calculator",
+          "notes": [
+            {
+              "content": "dsadsadas"
+            },
+            {
+              "content": "Hey cool calculator"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "username": "ethan-oien",
+      "repos": []
+    }
+  ]
+}

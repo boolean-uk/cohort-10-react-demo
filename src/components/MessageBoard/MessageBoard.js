@@ -1,38 +1,25 @@
-// what state does my app need?
-import { useState } from 'react'
-import { Message } from '../Message'
+import { useState, useEffect } from 'react'
+import Message from '../Message'
 
-const initialMessages = [
-  {
-    content: "'No', says Tom Kennedy",
-    author: 'Tom K',
-    heard: true
-  },
-  {
-    content: "Good Morning, Good Afternoon, Good Evening, Good Night!",
-    author: 'Hamza AK',
-    heard: false
-  }
-]
+function MessageBoard() {
 
-function MessageBoard () {
-
-  const [messages, setMessages] = useState(initialMessages)
-
-  // given i type some text in the input field
-  // when i click on the button
-  // then i should see the text display in the list
-
-  // probably need an event listener for the submit event
-  // some func to run when it triggers
-  // then when it triggers => UPDATE STATE!!!
+  const [messages, setMessages] = useState([])
+  const url = 'http://localhost:3001'
+  
+  useEffect(() => {
+    fetch(`${url}/messages`)
+    .then(res => res.json())
+    .then(data => {
+      console.log('useEffect')
+      setMessages(data)
+    })
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // target is the element that triggers the event
     const content = e.target[0].value
     const author = e.target[1].value
-
+    
     const newMessage = {
       content,
       author,
@@ -40,50 +27,64 @@ function MessageBoard () {
     }
 
     console.log(newMessage)
-    // COPY THE ARRAY
-    // const newMessages = messages.map(message => message)
-    // messages.push(newMessage) // NO NO NOPE, NEIN, RARA
-    // newMessages.push(newMessage) //yes, yes, yes, yes
-    // const newMessages = [...messages, newMessage]
-    setMessages([...messages, newMessage])
+    const options = {
+      method: 'POST',
+      body: {
+        "id": "",
+        "content": content,
+        "author": author,
+        "heard": false
+      }
+    };
+    
+    fetch('http://localhost:3001/messages', options)
+      .then(response => response.json())
+      .then(response => {
+        console.log(response)
+        setMessages([...messages, response])
+      })
+      .catch(err => console.error(err));
   }
 
   const handleDelete = (message) => {
-    // filter
-    const newMessages = messages.filter(item => {
-      if (item !== message) {
-        return message
-      }
-    })
-    setMessages(newMessages) // the new array (without the one i'm deleting)
-  }
-
-  const handleUpdate = (message, value) => {
-
-    const newMessages = messages.map(item => {
-      if (item === message) {
-        return {
-          ...item,
-          heard: value
+    const options = {
+      method: "DELETE"
+    }
+    fetch(`${url}/messages/${message.id}`, options)
+    .then(response => response.json())
+    .then(response => {
+      const newMessages = messages.filter(currentMessage => {
+        if(currentMessage !== message) {
+          return currentMessage
         }
-      } else {
-        return item
-      }
-    })
-
-    setMessages(newMessages)
-    // const messageToUpdate = messages.find(item => item === message)
-    // const updatedMessage = {
-    //   ...messageToUpdate,
-    //   heard: value
-    // }
-    // const filteredMessages = messages.filter(item => item !== message)
-    // // const newMessages =
-    // filteredMessages.push(updatedMessage) // inserts at the end
-    //
-    // setMessages(filteredMessages)
+      })
+      console.log(newMessages)
+      setMessages(newMessages)
+    }) 
   }
 
+  const handleUpdate = (message, checked) => {
+    const options = {
+      method: 'PATCH',
+      headers: {'Content-Type': 'application/json'},
+      body: `{"heard":${checked}}`
+    };
+    
+    fetch(`http://localhost:3001/messages/${message.id}`, options)
+      .then(response => response.json())
+      .then(response => {
+        const newMessages = messages.map(currentMessage => {
+          if(currentMessage !== message) {
+            return currentMessage
+          } else {
+            return response
+          }
+        })
+    
+        setMessages(newMessages)
+      })
+      .catch(err => console.error(err));
+  }
 
   return (
     <div>

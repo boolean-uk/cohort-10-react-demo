@@ -10,14 +10,16 @@ import { useState, useEffect } from 'react'
 // I should be able to navigate back to the home page showing a list of repositories for the user
 
 const initialFormData = {
-  github: 'dearshrewdwit'
+  github: ''
 }
 
 function Repos () {
   const [repos, setRepos] = useState([])
-  const [username, setUsername] = useState('dearshrewdwit')
+  const [username, setUsername] = useState('')
   const [formData, setFormData] = useState(initialFormData)
   const [notFound, setNotFound] = useState(false)
+  const [avatarUrl, setAvatarUrl] = useState('')
+
 
   useEffect(() => {
     // https://api.github.com/users/${username}/repos
@@ -29,6 +31,7 @@ function Repos () {
       } else {
         setNotFound(false)
         setRepos(data)
+        setAvatarUrl(data[0].owner.avatar_url)
       }
     })
   }, [username])
@@ -42,6 +45,9 @@ function Repos () {
     setFormData({...formData, github: e.target.value})
   }
 
+
+  console.log(repos)
+
   return (
     <>
       {
@@ -51,9 +57,12 @@ function Repos () {
         <input type="text" name="github" onChange={handleChange} value={formData.github}/>
         <button>get repos</button>
       </form>
+
+      <img src={avatarUrl} alt="" height="150"></img>
+
       {
-        repos.map((repo => (
-          <div>
+        repos.map(((repo, index) => (
+          <div key={index}>
               <Link to={`/${username}/${repo.name}`}>{repo.name}</Link>
           </div>
         )))
