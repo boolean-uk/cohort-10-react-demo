@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom"; // ADD USE NAVIGATE
+// import { AddNoteForm } from "./AddNoteForm";
 
 function Repo() {
   const [repo, setRepo] = useState({});
   const [notFound, setNotFound] = useState(false);
   const [notes, setNotes] = useState([]);
-  const [formData, setFormData] = useState();
+  // const [formData, setFormData] = useState();
 
   const params = useParams();
 
@@ -29,26 +31,33 @@ function Repo() {
       });
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
 
-    const newText = formData;
-    console.log("event", e.target.value);
-    const newNote = {
-      note: newText,
-    };
-    setNotes([...notes, newNote]);
-    console.log("note", notes);
+  //   const newText = formData;
+  //   console.log("event", e.target.value);
+  //   const newNote = {
+  //     note: newText,
+  //   };
+  //   setNotes([...notes, newNote]);
+  //   console.log("note", notes);
 
-    setFormData("");
-  };
+  //   setFormData("");
+  // };
 
-  const handleChange = (e) => {
-    setFormData(e.target.value);
-  };
+  // const handleChange = (e) => {
+  //   setFormData(e.target.value);
+  // };
+
+  //   useNavigate(() => {
+  //     const goBack = () => {
+  //       navigate(-1);
+  //     };
+  //  });
 
   return (
     <>
+      {/* <button onClick={useNavigate}>Notes</button> */}
       {notFound ? (
         <div>
           repo '{params.reponame}' of user '{params.username}' does not exist
@@ -65,7 +74,11 @@ function Repo() {
         </div>
       )}
       <h3>Note section:</h3>
-      <form onSubmit={handleSubmit}>
+      <Link to={`/${params.username}/${params.reponame}/notes/add`}>
+        <button>Notes</button>
+      </Link>
+     
+      {/* <form onSubmit={handleSubmit}>
         <label>
           <input
             type="text"
@@ -77,7 +90,7 @@ function Repo() {
         </label>
 
         <input type="submit" value="Add"></input>
-      </form>
+      </form> */}
       {notes.length > 0 ? (
         notes.map((noteObj, index) => {
           return <div key={index}> {noteObj.note} </div>;
