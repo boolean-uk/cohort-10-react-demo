@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 function Repo () {
   const [repo, setRepo] = useState({})
   const [notFound, setNotFound] = useState(false)
+  const [state, setState] = useState([])
 
   const params = useParams()
   console.log(params)
@@ -23,21 +24,71 @@ function Repo () {
     })
   }, [])
 
+  useEffect(() => {
+    fetch("http://localhost:4000/notes")
+    .then(response => response.json())
+    .then(data => {
+      setState(data)
+    })
+  }, [])
 
+ console.log(state)
+  
+ const notes = state.filter((object) => 
+  object.reponame === repo.name
+).sort((obj1,obj2) => obj2.id - obj1.id)
+
+console.log(notes)
+  
   return (
     <>
       {
         notFound ? (
           <div>repo '{params.reponame}' of user '{params.username}' does not exist</div>
         ) : (
-          <div>
-            <ul>
-              <li>name: {repo.name}</li>
-              <li>forks: {repo.forks}</li>
-              <li>stars: {repo.stargazers_count}</li>
-              <li>visibility: {repo.visibility}</li>
-            </ul>
-          </div>
+          
+          <>
+
+            <div>
+              <ul>
+                <li>name: {repo.name}</li>
+                <li>forks: {repo.forks}</li>
+                <li>stars: {repo.stargazers_count}</li>
+                <li>visibility: {repo.visibility}</li>
+              </ul>
+            </div>
+
+          {/* - A clickable element to add a note */}
+
+          {/* When a user clicks to add a note, then the url should change to ‘/dearshrewdwit/bowling-challenge/notes/add’ and show a text input field and a button to add the note.  */}
+
+          {
+            <Link to = {`/${params.username}/${params.reponame}/notes/add`}>Add a Note</Link>
+        
+          }
+
+          {/* - All current notes listed down the page in reverse chronological order (most recent at the top) for the repository */}
+
+          {notes.map((object, index) => {
+            return (
+              <ul>
+                <li key = {index}>
+                  {object.note}
+                </li>
+              </ul>
+            )
+
+          })}
+
+            
+
+
+            
+            
+
+
+
+          </>
         )
       }
     </>
