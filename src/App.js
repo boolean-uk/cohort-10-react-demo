@@ -1,6 +1,6 @@
 import './App.css';
 import { Routes, Route, Link } from "react-router-dom";
-import { Repos, Repo, Notes, AddNote } from './components/Repos'
+import { Repos, Repo, Notes, AddNote, Search } from './components/Repos'
 
 
 function App() {
@@ -10,7 +10,11 @@ function App() {
       <Routes>
         <Route
           path='/'
-          element={<Repos />}
+          element={<Search />}
+        />
+        <Route
+          path='/:username'
+          element={<><Search /> <Repos/></>}
         />
         <Route
           path='/:username/:reponame'
