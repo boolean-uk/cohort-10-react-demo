@@ -1,13 +1,7 @@
 import "./Repos.css";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-
-// show all repositories for me on the page by default when i load the page.
-// show also a input field where i can type any user's github username
-// when i hit the button, i want to see their repositories on the page.
-
-// clicking a repo should navigate to /user/repo-name and show information about the repo
-// I should be able to navigate back to the home page showing a list of repositories for the user
+import { useParams } from "react-router-dom";
 
 const initialFormData = {
   github: "Shylan21",
@@ -18,11 +12,13 @@ function Repos() {
   const [username, setUsername] = useState();
   const [formData, setFormData] = useState(initialFormData);
   const [notFound, setNotFound] = useState(false);
+  const [id, setId] = useState({});
+
+  const params = useParams();
 
   useEffect(() => {
-    // https://api.github.com/users/${username}/repos
     fetch(`https://api.github.com/users/${username}/repos`)
-      .then((res) => res.json()) // read the response format which is stored in JSON
+      .then((res) => res.json())
       .then((data) => {
         if (data.message === "Not Found") {
           setNotFound(true);
@@ -32,6 +28,16 @@ function Repos() {
         }
       });
   }, [username]);
+
+  useEffect(() => {
+    fetch(`https://api.github.com/users/${params.username}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setId(data);
+      });
+  }, []);
+
+ 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,7 +50,7 @@ function Repos() {
 
   return (
     <>
-      {notFound && <div>user "{username}" does not exist</div>}
+      {notFound && <div>User "{username}" does not exist</div>}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -54,6 +60,8 @@ function Repos() {
         />
         <button>get repos</button>
       </form>
+      <img src={username} alt={params.username} width={200}/>
+
       {repos.map((repo) => (
         <div>
           <Link to={`/${username}/${repo.name}`}>{repo.name}</Link>
