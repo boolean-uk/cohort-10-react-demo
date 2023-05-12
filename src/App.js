@@ -63,6 +63,7 @@ function App() {
           reponame={reponame}
           setReponame={setReponame}
         />} />
+        <Route path="/notes" element={<AllNotes />} />
       </Routes>
     </>
   );

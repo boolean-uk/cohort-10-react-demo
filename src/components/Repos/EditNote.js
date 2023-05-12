@@ -1,8 +1,19 @@
 import { useParams, useNavigate } from 'react-router-dom'
+import {useState, useEffect} from 'react'
 
 export default function EditNote({ repo }){
+  const [note, setNote] = useState('')
   const {username, id} = useParams()
   const navigate = useNavigate()
+
+    useEffect(() => {
+    const getNote = async () => {
+      const res = await fetch(`http://localhost:4000/data/${id}`)
+      const data = await res.json()
+      setNote(data)
+    }
+    getNote()
+    }, [id])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -31,11 +42,15 @@ export default function EditNote({ repo }){
     navigate(`/${username}/${repo.name}`)
   }
 
+  const handleChange = (e) => {
+    setNote(e.target.value)
+  }
+
   return(
       <div>
         <form onSubmit={handleSubmit}>
           <label>Comment
-            <input type="text"></input>
+            <input type="text" value={note.comment} onChange={handleChange}></input>
             <button>update note</button>
           </label>
         </form>
