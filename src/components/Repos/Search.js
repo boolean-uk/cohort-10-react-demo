@@ -21,22 +21,6 @@ function Search ({repos, setRepos, username, setUsername, notFound, setNotFound}
   const urlParams = useParams()
 
   useEffect(() => {
-    // https://api.github.com/users/${username}/repos
-    fetch(`https://api.github.com/users/${username}/repos`)
-      .then(res => res.json()) // read the response format which is stored in JSON
-      .then(data => {
-      if (data.message === 'Not Found') {
-        // setNotFound(true)
-      } else {
-        // console.log(data)
-        // setNotFound(false)
-        setRepos(data)
-        
-      }
-    })
-  }, [username])
-
-  useEffect(() => {
     // handleData()
   }, [repos])
 
@@ -58,6 +42,7 @@ function Search ({repos, setRepos, username, setUsername, notFound, setNotFound}
 
   const handleChange = (e) => {
     setFormData({...formData, github: e.target.value})
+    console.log(formData)
   }
 
 
@@ -73,10 +58,6 @@ function Search ({repos, setRepos, username, setUsername, notFound, setNotFound}
 
   return (
     <>
-      {
-        notFound && <div>user '{username}' does not exist</div>
-      }
-
       <form onSubmit={handleSubmit}>
         <input type="text" name="github" onChange={handleChange} value={formData.github}/>
         <button>get repos</button>

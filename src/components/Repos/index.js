@@ -5,6 +5,7 @@ import AddNote from './AddNote'
 import Search from './Search'
 import EditNote from './EditNote'
 import AllNotes from './AllNotes'
+import Users from './Users.js'
 
 export {
   Repos,
@@ -13,5 +14,6 @@ export {
   AddNote,
   Search,
   EditNote,
-  AllNotes
+  AllNotes,
+  Users
 }

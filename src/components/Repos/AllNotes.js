@@ -39,6 +39,7 @@ function AllNotes(){
     console.log('filteredComments', filteredComments)
   }
 
+   handleChange(e)
 
     return (
       <>

@@ -18,37 +18,9 @@ function Repos({setRepos, repos, username, setUsername, notFound, setNotFound })
   const [formData, setFormData] = useState(initialFormData);
   // const [repoData, setRepoData]= useState([])
 
-  useEffect(() => {
-    fetch(`https://api.github.com/users/${username}/repos`)
-      .then((res) => res.json()) // read the response format which is stored in JSON
-      .then((data) => {
-        if (data.message === "Not Found") {
-          setNotFound(true)
-        } else {
-          console.log('data', data)
-          setNotFound(false)
-          setRepos(data);
-        }
-      });
-  }, [username]);
-
-  useEffect(() => {
-    handleData();
-  }, [repos]);
-
   const handleChange = (e) => {
     setFormData({ ...formData, github: e.target.value });
   };
-
-  function handleData() {
-    const reposList = [];
-    for (let i = 0; i < repos.length; i++) {
-      const reposData = repos[i].name;
-      // console.log(reposData)
-      reposList.push(reposData);
-    }
-    // setRepoData(reposList)
-  }
 
   return (
     <>
