@@ -29,11 +29,27 @@ function Repo() {
       });
   }, []);
 
+  // const handleDelete = (note) => {
+  //   const newNotes = notes.filter((item) => {
+  //   if (item.id !== note.id) {
+  //     return note;
+  //   }})
+  //   setNotes(newNotes);
+  //   const options = {
+  //     method: "DELETE",
+  //   };
+  //   fetch(`http://localhost:4000/initialNote/${note.id}`, options)
+  //   .then(res => res.text())
+  // console.log("Note ID:",notes);
+  // console.log("Note IDDD:",notes.id);
+  // };
+
   const handleDelete = (note) => {
     const newNotes = notes.filter((item) => {
-      if (item !== note) {
+      if (item.id !== note.id) {
         return note;
       }
+      console.log("Note ID1:", note);
     });
     setNotes(newNotes);
     const options = {
@@ -42,6 +58,8 @@ function Repo() {
     fetch(`http://localhost:4000/initialNote/${note.id}`, options).then((res) =>
       res.text()
     );
+    console.log("Note ID2:", notes);
+    console.log("Note ID3:", note.note);
   };
 
   const handleChange = (note) => {
@@ -56,7 +74,7 @@ function Repo() {
         </div>
       ) : (
         <div>
-          {console.log("note", notes)}
+          {/* {console.log("note", notes)} */}
           <ul>
             <li>name: {repo.name}</li>
             <li>forks: {repo.forks}</li>
@@ -76,8 +94,8 @@ function Repo() {
               {" "}
               {noteObj.note}
               <span>
-                <button onClick={handleChange}>Edit</button>
-                <button onClick={handleDelete}>Delete</button>
+                {/* <button onClick={handleChange}>Edit</button> */}
+                {/* <button onClick={handleDelete}>Delete</button> */}
               </span>
             </div>
           );
