@@ -12,9 +12,9 @@ function Repos() {
   const [username, setUsername] = useState();
   const [formData, setFormData] = useState(initialFormData);
   const [notFound, setNotFound] = useState(false);
-  const [id, setId] = useState({});
+  const [user, setUser] = useState({});
 
-  const params = useParams();
+  // const params = useParams();
 
   useEffect(() => {
     fetch(`https://api.github.com/users/${username}/repos`)
@@ -30,12 +30,13 @@ function Repos() {
   }, [username]);
 
   useEffect(() => {
-    fetch(`https://api.github.com/users/${params.username}`)
+    fetch(`https://api.github.com/users/${username}`)
       .then((res) => res.json())
       .then((data) => {
-        setId(data);
+        console.log(data);
+        setUser(data);
       });
-  }, []);
+  }, [username]);
 
  
 
@@ -60,8 +61,8 @@ function Repos() {
         />
         <button>get repos</button>
       </form>
-      <img src={username} alt={params.username} width={200}/>
-
+      <img src={user.avatar_url} alt={username} />
+      
       {repos.map((repo) => (
         <div>
           <Link to={`/${username}/${repo.name}`}>{repo.name}</Link>
