@@ -15,20 +15,8 @@
     {
       "user": "alexjshaw",
       "repo": "cohort-10-react-demo",
-      "note": "5",
-      "id": 6
-    },
-    {
-      "user": "alexjshaw",
-      "repo": "cohort-10-react-demo",
       "note": "7",
       "id": 8
-    },
-    {
-      "user": "alexjshaw",
-      "repo": "cohort-10-react-demo",
-      "note": "8",
-      "id": 9
     },
     {
       "user": "alexjshaw",
@@ -41,6 +29,18 @@
       "repo": "html-adding-the-rest",
       "note": "editing another test note",
       "id": 14
+    },
+    {
+      "user": "alexjshaw",
+      "repo": "cohort-10-react-demo",
+      "note": "22222",
+      "id": 15
+    },
+    {
+      "user": "alexjshaw",
+      "repo": "cohort-10-react-demo",
+      "note": "dsfdsfdsfdsf",
+      "id": 16
     }
   ]
 }

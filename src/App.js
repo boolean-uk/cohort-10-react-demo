@@ -2,6 +2,7 @@ import './App.css';
 import { useState } from 'react';
 import { Routes, Route, Link } from "react-router-dom";
 import { Repos, Repo, AddNote, Home } from './components/Repos'
+import AllNotes from './components/Repos/AllNotes';
 
 function App() {
 
@@ -10,16 +11,27 @@ function App() {
   const [username, setUsername] = useState('')
   const [formData, setFormData] = useState('')
   const [notFound, setNotFound] = useState(false)
+  const [notes, setNotes] = useState([])
 
   const clearSearchBar = () => {
-    formData.github = ""
+    setFormData({...formData, github:""})
   }
-
+  
   return (
     <>
+      <Link to="/AllNotes" >
+      <button>ALL NOTES</button></Link>
       <Link to="/">
+        {/* <button >HOME</button></Link> */}
         <button onClick={clearSearchBar} >HOME</button></Link>
       <Routes>
+        <Route 
+        path="/AllNotes"
+        element={<AllNotes
+        notes={notes}
+        setNotes={setNotes}
+        />}
+        />
         <Route
           path='/'
           element={<Home 
@@ -48,7 +60,7 @@ function App() {
         />
         <Route
           path='/:username/:reponame'
-          element={<Repo editedNote={editedNote} setEditedNote={setEditedNote} />}
+          element={<Repo editedNote={editedNote} setEditedNote={setEditedNote} notes={notes} setNotes={setNotes} />}
         />
         <Route 
         path='/:username/:reponame/notes/add'

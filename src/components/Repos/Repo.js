@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from "react-router-dom"
 
-function Repo ({editedNote, setEditedNote}) {
+function Repo ({editedNote, setEditedNote, notes, setNotes}) {
   const [repo, setRepo] = useState({})
   const [notFound, setNotFound] = useState(false)
-  const [notes, setNotes] = useState([])
+  // const [notes, setNotes] = useState([])
 
   const params = useParams()
   const navigate = useNavigate()
@@ -30,27 +30,7 @@ function Repo ({editedNote, setEditedNote}) {
     .then(data => {
       setNotes(data)
     })
-  }, [])
-
-  const testFunction = () => {
-    console.log(notes)
-  }
-
-  const testFetch = () => {
-    const testRepo = {
-      name: "cohort-10-react-demo",
-      forks: 0,
-      stars: 0,
-      visibility: "public"
-    }
-    setRepo(testRepo)
-
-    fetch(`http://localhost:4000/Notes`)
-    .then(res => res.json())
-    .then(data => {
-      setNotes(data)
-    })
-  }
+  }, [setNotes])
 
   const handleEditButton = (note) => {
     setEditedNote(note)
@@ -76,7 +56,6 @@ function Repo ({editedNote, setEditedNote}) {
         console.log(data)
       })
     })
-
   };
 
   const handleBack = () => {
