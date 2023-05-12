@@ -8,6 +8,7 @@ import {
   AddNote,
   Search,
   EditNote,
+  AllNotes
 } from "./components/Repos";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
   return (
     <>
       <Link to="/">home</Link>
+      <Link to='/notes'><button>All Notes</button></Link>
 
       <Routes>
         <Route
