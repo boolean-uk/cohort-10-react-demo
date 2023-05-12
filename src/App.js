@@ -1,27 +1,23 @@
 import './App.css';
 import { Routes, Route, Link } from "react-router-dom";
-import { Repos, Repo, AddNote } from './components/Repos'
-import {useState, useEffect} from 'react'
+import { Repos, Repo, AddNote, Form } from './components/Repos'
+
 
 function App() {
 
-  const [userName, setUsername] = useState('')
+  // 1. When a user navigates to the index ('/') they should only see the input field and button. 
 
-  useEffect(() => {
-    fetch("http://localhost:4000/notes")
-    .then(response => response.json())
-    .then(data => {
-      setUsername(data[data.length - 1].username)
-    })
-  }, [])
 
-  
   return (
     <>
       <Link to= {`/`}>home</Link>
       <Routes>
         <Route
-          path="/"
+          path='/'
+          element={<Form />} 
+        />
+        <Route
+          path="/:username"
           element={<Repos />}
         />
         <Route

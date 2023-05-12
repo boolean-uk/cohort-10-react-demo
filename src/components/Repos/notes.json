@@ -41,6 +41,42 @@
       "username": "dearshrewdwit",
       "reponame": "boolean-uk-tdd-todo-app",
       "id": 7
+    },
+    {
+      "note": "This is a nice repo",
+      "username": "marc-alzapiedi",
+      "reponame": "html-gymtastic",
+      "id": 8
+    },
+    {
+      "note": "Hey man",
+      "username": "dearshrewdwit",
+      "reponame": "bundler",
+      "id": 9
+    },
+    {
+      "note": "This is a note",
+      "username": "marc-alzapiedi",
+      "reponame": "html-spotify-challenge",
+      "id": 10
+    },
+    {
+      "note": "This is another note",
+      "username": "marc-alzapiedi",
+      "reponame": "js-dom-brewery-tours-challenge",
+      "id": 11
+    },
+    {
+      "note": "This is an interesting repo that I have never seen before",
+      "username": "bill",
+      "reponame": "jekyll-import",
+      "id": 12
+    },
+    {
+      "note": "This is another note of this repo",
+      "username": "bill",
+      "reponame": "jekyll-import",
+      "id": 13
     }
   ]
 }

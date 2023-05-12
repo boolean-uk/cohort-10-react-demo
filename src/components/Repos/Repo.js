@@ -22,7 +22,7 @@ function Repo () {
         setRepo(data)
       }
     })
-  }, [])
+  }, [params.username, params.reponame])
 
   useEffect(() => {
     fetch("http://localhost:4000/notes")
@@ -32,7 +32,8 @@ function Repo () {
     })
   }, [])
 
- console.log(state)
+
+
   
  const notes = state.filter((object) => 
   object.reponame === repo.name
@@ -49,6 +50,10 @@ console.log(notes)
           
           <>
 
+          <div>
+            <Link to = {`/${params.username}`}> Back</Link>
+          </div>
+
             <div>
               <ul>
                 <li>name: {repo.name}</li>
@@ -57,6 +62,7 @@ console.log(notes)
                 <li>visibility: {repo.visibility}</li>
               </ul>
             </div>
+            
 
           {/* - A clickable element to add a note */}
 
@@ -79,13 +85,6 @@ console.log(notes)
             )
 
           })}
-
-            
-
-
-            
-            
-
 
 
           </>

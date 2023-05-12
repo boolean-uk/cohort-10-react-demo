@@ -1,6 +1,6 @@
 import './Repos.css'
-import { Link } from "react-router-dom";
-import { useState, useEffect } from 'react'
+import { Link, useParams } from "react-router-dom";
+import { useState, useEffect} from 'react'
 
 // show all repositories for me on the page by default when i load the page.
 // show also a input field where i can type any user's github username
@@ -9,16 +9,25 @@ import { useState, useEffect } from 'react'
 // clicking a repo should navigate to /user/repo-name and show information about the repo
 // I should be able to navigate back to the home page showing a list of repositories for the user
 
-const initialFormData = {
-  github: 'dearshrewdwit'
-}
+
 
 function Repos () {
+  const params = useParams()
+  console.log(params)
   const [repos, setRepos] = useState([])
-  const [username, setUsername] = useState('dearshrewdwit')
-  const [formData, setFormData] = useState(initialFormData)
+  const [username, setUsername] = useState(params.username)
+  const [formData, setFormData] = useState({
+    github: params.username
+  })
   const [notFound, setNotFound] = useState(false)
+  const [imgLink, setImg] = useState('')
 
+
+  console.log('username', username)
+  console.log('formdata', formData)
+  
+
+  
   useEffect(() => {
     // https://api.github.com/users/${username}/repos
     fetch(`https://api.github.com/users/${username}/repos`)
@@ -33,9 +42,22 @@ function Repos () {
     })
   }, [username])
 
+  useEffect(() => {
+    fetch(`https://api.github.com/users/${username}`)
+    .then(response => response.json())
+    .then(data => {
+      setImg(data.avatar_url)
+    })
+    
+  }, [username])
+
+
+
+
   const handleSubmit = (e) => {
     e.preventDefault()
     setUsername(formData.github)
+    
   }
 
   const handleChange = (e) => {
@@ -51,6 +73,9 @@ function Repos () {
         <input type="text" name="github" onChange={handleChange} value={formData.github}/>
         <button>get repos</button>
       </form>
+      {
+        <img alt='useravatar' src={imgLink} height={200} />
+      }
       {
         repos.map((repo => (
           <div>
