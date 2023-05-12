@@ -29,6 +29,25 @@ function Repo() {
       });
   }, []);
 
+  const handleDelete = (note) => {
+    const newNotes = notes.filter((item) => {
+      if (item !== note) {
+        return note;
+      }
+    });
+    setNotes(newNotes);
+    const options = {
+      method: "DELETE",
+    };
+    fetch(`http://localhost:4000/initialNote/${note.id}`, options).then((res) =>
+      res.text()
+    );
+  };
+
+  const handleChange = (note) => {
+    note.preventDefault();
+  };
+
   return (
     <>
       {notFound ? (
@@ -52,12 +71,20 @@ function Repo() {
       </Link>
       {notes.length > 0 ? (
         [...notes].reverse().map((noteObj, index) => {
-          return <div key={index}> {noteObj.note} </div>;
+          return (
+            <div key={index}>
+              {" "}
+              {noteObj.note}
+              <span>
+                <button onClick={handleChange}>Edit</button>
+                <button onClick={handleDelete}>Delete</button>
+              </span>
+            </div>
+          );
         })
       ) : (
         <p>No notes found!</p>
       )}
-
     </>
   );
 }

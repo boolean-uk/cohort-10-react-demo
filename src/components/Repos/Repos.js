@@ -1,7 +1,6 @@
 import "./Repos.css";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 
 const initialFormData = {
   github: "Shylan21",
@@ -33,7 +32,6 @@ function Repos() {
     fetch(`https://api.github.com/users/${username}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setUser(data);
       });
   }, [username]);
