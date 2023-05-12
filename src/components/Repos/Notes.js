@@ -34,21 +34,20 @@ function Notes(){
   }
 
 
-return(
-    <>
-      <ul>
-      {
-        notes.map((el) => {
-          console.log(`here`,el.username, el.repo)
-       if(el.username === username && el.repo === reponame ) {
-      //  return <li>Comment: {el.comment} Author: {el.author}<button onClick={()=>handleClick(el.id)}>Edit</button> </li>
-      return <li>Comment: {el.comment} <Link to={`/${username}/notes/${el.id}/edit`}>edit page</Link> <button onClick={() => deleteComment(el.id)}>delete</button></li>
-      }
-    }
-        )
-      }
-      </ul>
-    </>
-)
+  return(
+      <>
+        <ul>
+        {
+          notes.slice(0).reverse().map((el) => {
+              console.log(`here`,el.username, el.repo)
+              if(el.username === username && el.repo === reponame ) {
+                return <li>Comment: {el.comment} <Link to={`/${username}/notes/${el.id}/edit`}>edit page</Link> <button onClick={() => deleteComment(el.id)}>delete</button></li>
+              }
+            }
+          )
+        }
+        </ul>
+      </>
+  )
 }
 export default Notes

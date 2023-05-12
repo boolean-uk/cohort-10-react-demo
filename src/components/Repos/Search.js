@@ -1,5 +1,5 @@
 import './Repos.css'
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from 'react'
 
 
@@ -14,11 +14,11 @@ const initialFormData = {
   github: ''
 }
 
-function Search ({username, setUsername, notFound, setNotFound}) {
-  const [repos, setRepos] = useState([])
+function Search ({repos, setRepos, username, setUsername, notFound, setNotFound}) {
   const [formData, setFormData] = useState(initialFormData)
   const [repoData, setRepoData]= useState([])
   const navigate = useNavigate()
+  const urlParams = useParams()
 
   useEffect(() => {
     // https://api.github.com/users/${username}/repos
@@ -26,10 +26,10 @@ function Search ({username, setUsername, notFound, setNotFound}) {
       .then(res => res.json()) // read the response format which is stored in JSON
       .then(data => {
       if (data.message === 'Not Found') {
-        setNotFound(true)
+        // setNotFound(true)
       } else {
         // console.log(data)
-        setNotFound(false)
+        // setNotFound(false)
         setRepos(data)
         
       }
@@ -48,11 +48,11 @@ function Search ({username, setUsername, notFound, setNotFound}) {
     // if the username key doesn't exist inside of db.json, create it and 
     // give it a value of an object, which has keys for each repo name and 
     // values (for those keys) of an empty array
-    if (!repos.hasOwnProperty(userName)) {
-      repos[userName] = {}
-    // repoData
-
-    }
+    // if (!repos.hasOwnProperty(userName)) {
+    //   repos[userName] = {}
+    // // repoData
+    //
+    // }
     navigate(`/${userName}`)
   }
 

@@ -13,8 +13,7 @@ const initialFormData = {
   github: "ManNavic",
 };
 
-function Repos({ username, setUsername, notFound, setNotFound }) {
-  const [repos, setRepos] = useState([]);
+function Repos({setRepos, repos, username, setUsername, notFound, setNotFound }) {
   // const [username, setUsername] = useState('ManNavic')
   const [formData, setFormData] = useState(initialFormData);
   // const [repoData, setRepoData]= useState([])
@@ -24,10 +23,10 @@ function Repos({ username, setUsername, notFound, setNotFound }) {
       .then((res) => res.json()) // read the response format which is stored in JSON
       .then((data) => {
         if (data.message === "Not Found") {
-          // setNotFound(true)
+          setNotFound(true)
         } else {
-          // console.log(data)
-          // setNotFound(false)
+          console.log('data', data)
+          setNotFound(false)
           setRepos(data);
         }
       });
