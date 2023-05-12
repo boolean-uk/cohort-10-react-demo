@@ -38,8 +38,6 @@ function Repos() {
       });
   }, [username]);
 
- 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setUsername(formData.github);
@@ -61,8 +59,8 @@ function Repos() {
         />
         <button>get repos</button>
       </form>
-      <img src={user.avatar_url} alt={username} />
-      
+      <img src={user.avatar_url} alt={username} width={100} />
+
       {repos.map((repo) => (
         <div>
           <Link to={`/${username}/${repo.name}`}>{repo.name}</Link>
