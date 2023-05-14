@@ -66,6 +66,11 @@ function Repos () {
 
   return (
     <>
+      <div>
+
+        <Link to={'/notes'}>View Notes</Link>
+      </div>
+      
       {
         notFound && <div>user '{username}' does not exist</div>
       }

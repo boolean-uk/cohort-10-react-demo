@@ -1,6 +1,6 @@
 import './App.css';
 import { Routes, Route, Link } from "react-router-dom";
-import { Repos, Repo, AddNote, Form, Edit } from './components/Repos'
+import { Repos, Repo, AddNote, Form, Edit, Notes } from './components/Repos'
 
 
 function App() {
@@ -10,7 +10,10 @@ function App() {
 
   return (
     <>
-      <Link to= {`/`}>home</Link>
+    
+      
+      <Link to= {`/`}>Home</Link>
+      
       <Routes>
         <Route
           path='/'
@@ -33,7 +36,12 @@ function App() {
             path='/:username/:notes/:id/edit'
             element = {<Edit />}
           />
-          
+        
+        <Route
+          path='/notes' 
+          element = {<Notes />}
+        />
+
       </Routes>
     </>
   );
