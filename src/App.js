@@ -1,6 +1,6 @@
 import './App.css';
 import { Routes, Route, Link } from "react-router-dom";
-import { Repos, Repo, AddNote, Form } from './components/Repos'
+import { Repos, Repo, AddNote, Form, Edit } from './components/Repos'
 
 
 function App() {
@@ -24,10 +24,16 @@ function App() {
           path='/:username/:reponame'
           element={<Repo />}
         />
+        
         <Route 
           path = '/:username/:reponame/:notes/:add'
           element={<AddNote />}
         />
+          <Route
+            path='/:username/:notes/:id/edit'
+            element = {<Edit />}
+          />
+          
       </Routes>
     </>
   );

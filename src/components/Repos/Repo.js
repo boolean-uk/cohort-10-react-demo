@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react'
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useNavigate} from "react-router-dom"
+
+
+
+// 2. When a user clicks to edit a note, then the url should change to ‘/dearshrewdwit/notes/12/edit’ and show a text input field populated with the current note text and a button to update the note. When the note is updated, the app should navigate back to the repo page and the user should see all the notes including the newly updated one.
 
 function Repo () {
   const [repo, setRepo] = useState({})
@@ -7,6 +11,7 @@ function Repo () {
   const [state, setState] = useState([])
 
   const params = useParams()
+  const navigate = useNavigate()
   console.log(params)
 
   useEffect(() => {
@@ -40,6 +45,31 @@ function Repo () {
 ).sort((obj1,obj2) => obj2.id - obj1.id)
 
 console.log(notes)
+
+const handleEdit = (object) => {
+  
+  navigate(`/${object.username}/${object.note}/${object.id}/edit`)
+}
+
+const handleDelete = (object) => {
+
+  const newNotes = state.filter(item => {
+    if (item !== object) {
+      return object
+    }
+  })
+
+  const options = {
+    method: "DELETE"
+  }
+
+  fetch(`http://localhost:4000/notes/${object.id}`, options)
+  .then(response => response.json())
+
+  setState(newNotes)
+  
+
+}
   
   return (
     <>
@@ -77,11 +107,15 @@ console.log(notes)
 
           {notes.map((object, index) => {
             return (
+              
               <ul>
                 <li key = {index}>
                   {object.note}
+                  <button onClick={()=> handleEdit(object)}>Edit Note</button>
+                  <button onClick={() => handleDelete(object)}>Delete Note</button>
                 </li>
               </ul>
+             
             )
 
           })}
