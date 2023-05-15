@@ -5,8 +5,6 @@ function Notes(){
   const [notes, setNotes]= useState([])
 
   const { username, reponame  } = useParams()
-  console.log('username', username)
-
 
   const getNotes = () => {
     fetch("http://localhost:4000/data")
@@ -19,7 +17,6 @@ function Notes(){
   }, [])
 
   const deleteComment = (id) => {
-    // When deleting a comment, and refreshing the page
     const options = {
       method: "DELETE"
     }
@@ -33,18 +30,15 @@ function Notes(){
       })
   }
 
-
   return(
       <>
         <ul>
         {
-          notes.slice(0).reverse().map((el) => {
-              console.log(`here`,el.username, el.repo)
-              if(el.username === username && el.repo === reponame ) {
-                return <li>Comment: {el.comment} <Link to={`/${username}/notes/${el.id}/edit`}>edit page</Link> <button onClick={() => deleteComment(el.id)}>delete</button></li>
-              }
-            }
-          )
+          notes.slice(0).reverse()
+          .filter((el) => {return el.username === username && el.repo === reponame})
+          .map((el) => { 
+            return <li>Comment: {el.comment} <Link to={`/${username}/notes/${el.id}/edit`}>edit page</Link> <button onClick={() => deleteComment(el.id)}>delete</button></li>
+          })
         }
         </ul>
       </>

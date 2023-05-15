@@ -8,8 +8,6 @@ function AddNote() {
     e.preventDefault()
     const commentInput = e.target[0].value
 
-
-
     const newNote = {
       comment: commentInput,
       username: urlParams.username,
@@ -29,6 +27,7 @@ function AddNote() {
     })
     navigate(`/${urlParams.username}/${urlParams.reponame}`)
   }
+
   return(
     <>
       <form onSubmit={handleSubmit}>

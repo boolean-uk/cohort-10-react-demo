@@ -33,8 +33,6 @@ export default function EditNote({ repo }){
     body: JSON.stringify(updatedComment)
     }
 
-    console.log(id)
-
     fetch(`http://localhost:4000/data/${id}`, options) 
     .then(response => {
       return response.json()

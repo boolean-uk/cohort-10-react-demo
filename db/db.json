@@ -72,10 +72,28 @@
       "id": 15
     },
     {
-      "comment": "new noite",
+      "comment": "This is good!!",
+      "username": "ample-samples",
+      "repo": "cohort-10-react-demo",
+      "id": 17
+    },
+    {
+      "comment": "wow",
+      "username": "ample-samples",
+      "repo": "cohort-10-react-demo",
+      "id": 18
+    },
+    {
+      "comment": "Noice",
       "username": "ample-samples",
       "repo": "configs",
-      "id": 16
+      "id": 19
+    },
+    {
+      "comment": "Yea",
+      "username": "ample-samples",
+      "repo": "configs",
+      "id": 20
     }
   ]
 }
