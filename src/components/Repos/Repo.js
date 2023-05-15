@@ -44,27 +44,27 @@ function Repo() {
   // console.log("Note IDDD:",notes.id);
   // };
 
-  const handleDelete = (note) => {
-    const newNotes = notes.filter((item) => {
-      if (item.id !== note.id) {
-        return note;
-      }
-      console.log("Note ID1:", note);
-    });
-    setNotes(newNotes);
-    const options = {
-      method: "DELETE",
-    };
-    fetch(`http://localhost:4000/initialNote/${note.id}`, options).then((res) =>
-      res.text()
-    );
-    console.log("Note ID2:", notes);
-    console.log("Note ID3:", note.note);
-  };
+  // const handleDelete = (note) => {
+  //   const newNotes = notes.filter((item) => {
+  //     if (item.id !== note.id) {
+  //       return note;
+  //     }
+  //     console.log("Note ID1:", note);
+  //   });
+  //   setNotes(newNotes);
+  //   const options = {
+  //     method: "DELETE",
+  //   };
+  //   fetch(`http://localhost:4000/initialNote/${note.id}`, options).then((res) =>
+  //     res.text()
+  //   );
+  //   console.log("Note ID2:", notes);
+  //   console.log("Note ID3:", note.note);
+  // };
 
-  const handleChange = (note) => {
-    note.preventDefault();
-  };
+  // const handleChange = (note) => {
+  //   note.preventDefault();
+  // };
 
   return (
     <>
