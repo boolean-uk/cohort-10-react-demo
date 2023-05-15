@@ -3,21 +3,18 @@ import { Link, useParams } from "react-router-dom"
 import { Notes } from './'
 
 
-function Repo ({repo, setRepo, username, setUsername}) {
+function Repo ({repo, setRepo}) {
   const [notFound, setNotFound] = useState(false)
 
   const params = useParams()
-  console.log(params)
 
   useEffect(() => {
-    //  https://api.github.com/repos/OWNER/REPO
     fetch(`https://api.github.com/repos/${params.username}/${params.reponame}`)
       .then(res => res.json()) // read the response format which is stored in JSON
       .then(data => {
       if (data.message === 'Not Found') {
         setNotFound(true)
       } else {
-        console.log(data)
         setNotFound(false)
         setRepo(data)
       }
@@ -28,7 +25,6 @@ function Repo ({repo, setRepo, username, setUsername}) {
   return (
     <>
           <Link to={`/${params.username}`}> <button>Back</button></Link>
-
       {
         notFound ? (
           <div>repo '{params.reponame}' of user '{params.username}' does not exist</div>
