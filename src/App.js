@@ -5,9 +5,10 @@ import {
   Repo,
   NotesForm,
   NotesEditForm,
-  Search,
   Notes
 } from './components/Repos'
+
+import SearchPage from './pages/SearchPage'
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
       <Routes>
         <Route
           path='/'
-          element={<Search />}
+          element={<SearchPage />}
         />
         <Route
           path='/:username'

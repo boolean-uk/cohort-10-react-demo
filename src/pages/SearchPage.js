@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom"
 import { useState } from 'react'
+import { Form } from '../components/Repos'
 
 const initialFormData = {
   username: 'dearshrewdwit'
 }
 
-function Search () {
+function SearchPage () {
   const [formData, setFormData] = useState(initialFormData)
   const navigate = useNavigate()
 
@@ -21,12 +22,15 @@ function Search () {
   return (
     <>
       <h1>Search for a GitHub user</h1>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="username" onChange={handleChange} value={formData.username}/>
-        <button>go</button>
-      </form>
+      <Form
+        handleSubmit={handleSubmit}
+        inputName={"username"}
+        handleChange={handleChange}
+        value={formData.username}
+        buttonText={"go"}
+      />
     </>
   )
 }
 
-export default Search
+export default SearchPage

@@ -2,7 +2,7 @@ import Repos from './Repos'
 import Repo from './Repo'
 import NotesForm from './NotesForm'
 import NotesEditForm from './NotesEditForm'
-import Search from './Search'
+import Form from './Form'
 import Notes from './Notes'
 
 export {
@@ -10,6 +10,6 @@ export {
   Repo,
   NotesForm,
   NotesEditForm,
-  Search,
+  Form,
   Notes
 }
