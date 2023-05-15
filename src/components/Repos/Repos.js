@@ -1,23 +1,11 @@
 import './Repos.css'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react'
 
-// show all repositories for me on the page by default when i load the page.
-// show also a input field where i can type any user's github username
-// when i hit the button, i want to see their repositories on the page.
+function Repos ({repos, setRepos, username, setUsername, formData, setFormData, notFound, setNotFound}) {
 
-// clicking a repo should navigate to /user/repo-name and show information about the repo
-// I should be able to navigate back to the home page showing a list of repositories for the user
-
-const initialFormData = {
-  github: 'dearshrewdwit'
-}
-
-function Repos () {
-  const [repos, setRepos] = useState([])
-  const [username, setUsername] = useState('dearshrewdwit')
-  const [formData, setFormData] = useState(initialFormData)
-  const [notFound, setNotFound] = useState(false)
+  const navigate = useNavigate()
+  const [userData, setUserData] = useState([])
 
   useEffect(() => {
     // https://api.github.com/users/${username}/repos
@@ -31,15 +19,34 @@ function Repos () {
         setRepos(data)
       }
     })
+  }, [username, setNotFound, setRepos])
+
+  useEffect(() => {
+    fetch(`https://api.github.com/users/${username}`)
+    .then (res => res.json())
+    .then (data => setUserData(data))
   }, [username])
+
+  const Card = () => {
+    return (
+      <>
+      <img src={userData.avatar_url} alt="User Avatar" width={100} />
+      <div>{userData.name}</div>
+      <div>{userData.company}</div>
+      </>
+    )
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     setUsername(formData.github)
+    navigate(`/${formData.github}`)
   }
 
-  const handleChange = (e) => {
+const handleChange = (e) => {
     setFormData({...formData, github: e.target.value})
+    console.log(userData.name)
+    console.log(userData.company)
   }
 
   return (
@@ -51,9 +58,10 @@ function Repos () {
         <input type="text" name="github" onChange={handleChange} value={formData.github}/>
         <button>get repos</button>
       </form>
+      <Card />
       {
         repos.map((repo => (
-          <div>
+          <div key={repo.name}>
               <Link to={`/${username}/${repo.name}`}>{repo.name}</Link>
           </div>
         )))

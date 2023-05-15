@@ -1,31 +1,71 @@
+import './repo.css'
+import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react'
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
-function Repo () {
+function Repo ({editedNote, setEditedNote, notes, setNotes}) {
   const [repo, setRepo] = useState({})
   const [notFound, setNotFound] = useState(false)
+  // const [notes, setNotes] = useState([])
 
   const params = useParams()
-  console.log(params)
+  const navigate = useNavigate()
 
   useEffect(() => {
-    //  https://api.github.com/repos/OWNER/REPO
     fetch(`https://api.github.com/repos/${params.username}/${params.reponame}`)
-      .then(res => res.json()) // read the response format which is stored in JSON
+      .then(res => res.json())
       .then(data => {
       if (data.message === 'Not Found') {
         setNotFound(true)
       } else {
-        console.log(data)
         setNotFound(false)
         setRepo(data)
       }
     })
   }, [])
 
+  useEffect(() => {
+    fetch(`http://localhost:4000/Notes`)
+    .then(res => res.json())
+    .then(data => {
+      setNotes(data)
+    })
+  }, [setNotes])
+
+  const handleEditButton = (note) => {
+    setEditedNote(note)
+    navigate(`/${params.username}/notes/${note.id}/edit`)
+  }
+
+  const handleAddButton = () => {
+    setEditedNote("")
+    navigate(`/${params.username}/${repo.name}/notes/add`)
+  }
+
+  const handleDelete = (item) => {
+    console.log(item)
+    console.log(item.id)
+    fetch(`http://localhost:4000/Notes/${item.id}`,{
+      method: "DELETE"
+    })
+    .then(() => {
+      fetch("http://localhost:4000/Notes")
+      .then(res => res.json())
+      .then(data => {
+        setNotes(data)
+        console.log(data)
+      })
+    })
+  };
+
+  const handleBack = () => {
+    navigate(`/${params.username}`)
+  }
+
 
   return (
     <>
+      <button onClick={handleBack} >BACK</button>
       {
         notFound ? (
           <div>repo '{params.reponame}' of user '{params.username}' does not exist</div>
@@ -40,8 +80,23 @@ function Repo () {
           </div>
         )
       }
+      <button onClick={handleAddButton} >Add Note</button>
+      <h2>Notes</h2>
+      <div>
+        <ul>
+          {notes.map(item => {
+            if (item.user === params.username && item.repo === repo.name) {
+              return <li key={item.id}>{item.note}
+              <button onClick={() => handleEditButton(item)} >EDIT</button>
+              <button onClick={() => handleDelete(item)} >DELETE</button></li>
+            }
+          })}
+        </ul>
+      </div>
     </>
   )
 }
 
 export default Repo
+
+
