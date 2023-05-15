@@ -21,7 +21,7 @@ function App() {
 
   useEffect(() => {
       fetch(`https://api.github.com/users/${username}/repos`)
-        .then(res => res.json()) // read the response format which is stored in JSON
+        .then(res => res.json())
         .then(data => {
         if (data.message !== 'Not Found') {
           setRepos(data)
