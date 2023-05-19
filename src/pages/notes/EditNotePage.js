@@ -1,5 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from 'react'
+import { Form } from '../../components/Form'
+import notesClient from '../../utils/client'
 
 function NotesEditForm() {
   const { username, noteId } = useParams()
@@ -8,8 +10,7 @@ function NotesEditForm() {
 
   useEffect(() => {
     const getNote = async () => {
-      const res = await fetch(`http://localhost:4000/notes/${noteId}`)
-      const data = await res.json()
+      const data = await notesClient.get(`/notes/${noteId}`)
       setNote(data)
     }
     getNote()
@@ -17,13 +18,7 @@ function NotesEditForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await fetch(`http://localhost:4000/notes/${note.id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(note)
-    })
+    await notesClient.patch(`/notes/${note.id}`, note)
     navigate(`/${username}/${note.repo}`)
   }
 
@@ -32,12 +27,13 @@ function NotesEditForm() {
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="contents" value={note.contents} onChange={handleChange}/>
-        <button>update note</button>
-      </form>
-    </>
+    <Form
+      handleSubmit={handleSubmit}
+      inputName={"contents"}
+      handleChange={handleChange}
+      value={note.contents}
+      buttonText={"update note"}
+    />
   )
 }
 

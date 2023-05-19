@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { useState } from 'react'
-import { Form } from '../components/Repos'
+import { Form } from '../components/Form'
 
 const initialFormData = {
   username: 'dearshrewdwit'

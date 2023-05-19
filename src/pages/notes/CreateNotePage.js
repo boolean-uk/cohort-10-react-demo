@@ -1,7 +1,9 @@
 import { useParams, useNavigate } from "react-router-dom"
 import { useState } from 'react'
+import { Form } from '../../components/Form'
+import notesClient from '../../utils/client'
 
-function NotesForm () {
+function CreateNotePage () {
   const {username, reponame} = useParams()
   const [note, setNote] = useState({
     contents: '',
@@ -12,13 +14,7 @@ function NotesForm () {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await fetch(`http://localhost:4000/notes`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({...note, timestamp: new Date()})
-    })
+    await notesClient.post('/notes', {...note, timestamp: new Date()})
     navigate(`/${username}/${reponame}`)
   }
 
@@ -27,13 +23,14 @@ function NotesForm () {
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="contents" value={note.contents} onChange={handleChange}/>
-        <button>add note</button>
-      </form>
-    </>
+    <Form
+      handleSubmit={handleSubmit}
+      inputName={"contents"}
+      handleChange={handleChange}
+      value={note.contents}
+      buttonText={"add note"}
+    />
   )
 }
 
-export default NotesForm
+export default CreateNotePage

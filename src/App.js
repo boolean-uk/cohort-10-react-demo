@@ -1,14 +1,14 @@
 import './App.css';
 import { Routes, Route, Link } from "react-router-dom";
-import {
-  Repos,
-  Repo,
-  NotesForm,
-  NotesEditForm,
-  Notes
-} from './components/Repos'
 
-import SearchPage from './pages/SearchPage'
+import {
+  SearchPage,
+  UserPage,
+  RepoPage,
+  CreateNotePage,
+  EditNotePage,
+  NotesPage
+} from './pages'
 
 function App() {
 
@@ -23,23 +23,23 @@ function App() {
         />
         <Route
           path='/:username'
-          element={<Repos />}
+          element={<UserPage />}
         />
         <Route
           path='/:username/:reponame'
-          element={<Repo />}
+          element={<RepoPage />}
         />
         <Route
           path='/:username/:reponame/notes/add'
-          element={<NotesForm />}
+          element={<CreateNotePage />}
         />
         <Route
           path='/:username/notes/:noteId/edit'
-          element={<NotesEditForm />}
+          element={<EditNotePage />}
         />
         <Route
           path='/notes'
-          element={<Notes />}
+          element={<NotesPage />}
         />
       </Routes>
     </>
